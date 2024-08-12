@@ -7,8 +7,8 @@
     const name = event.target[0].value
     if (name === '') return
 
-    const id = uuid()
-    const temp: Map<number, Habit> = $habits
+    const id: string = uuid()
+    const temp: Map<string, Habit> = $habits
     temp.set(id, {
       id,
       name,
