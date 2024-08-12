@@ -4,11 +4,22 @@ type Instance = {
 }
 
 type Habit = {
-  id: number,
+  id: string,
   name: string,
   instances: Instance[],
 }
 
+type Goal = {
+  name: string,
+  habitID: string,
+  dueDate?: Date,
+  goalTotal?: number,
+  goalFrequency?: number,
+  completed?: boolean
+}
+
 export type {
-  Habit
+  Habit,
+  Goal,
+  Instance
 }
