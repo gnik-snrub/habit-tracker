@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const apiController = require('../controllers/apiController')
 
-router.get('/', (req, res) => {
-  res.send('api works')
-})
+router.get('/habits/:userID', apiController.getHabits)
+router.post('/habits', apiController.createHabit)
 
 module.exports = router
