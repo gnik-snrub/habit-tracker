@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
 
   import { habits } from '../stores/habits'
+  import { userData } from '../stores/userData'
 
   function addNewHabit(event: Event): void {
   onMount(async() => {
@@ -54,16 +56,19 @@
 
 </script>
 
-<form on:submit|preventDefault={addNewHabit}>
-  <input type="text" id="name" placeholder="Habit name" />
-  <button type="submit">Add</button>
-</form>
-<ul>
-  {#each Array.from($habits.values()) as habit}
-    <li class="habit">
-      <a href="/{habit.id}"><h3>{habit.name}</h3></a>
-      <p>How many times: {habit.instances.length}</p>
-      <button on:click={() => doHabit(habit.id)}>+</button>
-    </li>
-  {/each}
-</ul>
+<section>
+  <form on:submit|preventDefault={addNewHabit}>
+    <input type="text" id="name" placeholder="Habit name" />
+    <button type="submit">Add</button>
+  </form>
+  <ul>
+    {#each Array.from($habits.values()) as habit}
+      <li class="habit">
+        <a href="/{habit._id}"><h3>{habit.name}</h3></a>
+        <p>How many times: {habit.instances.length}</p>
+        <button on:click={() => doHabit(habit._id)}>+</button>
+      </li>
+    {/each}
+  </ul>
+</section>
+
