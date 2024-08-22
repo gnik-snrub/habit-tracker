@@ -10,3 +10,15 @@ exports.getHabits = async(req, res) => {
   res.json(habits)
 }
 
+exports.createHabit = async(req, res) => {
+  if (!req.body) {
+    return res.json({ error: 'Missing body' })
+  }
+  const newHabit = new Habit({
+    user: req.body.user,
+    name: req.body.name,
+  })
+  await newHabit.save()
+  res.json({ newHabitID: newHabit._id})
+}
+
