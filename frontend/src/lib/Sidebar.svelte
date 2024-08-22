@@ -1,9 +1,18 @@
 <script lang="ts">
-  import {v4 as uuid} from 'uuid'
 
   import { habits } from '../stores/habits'
 
   function addNewHabit(event: Event): void {
+  onMount(async() => {
+    const response = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
+    const updatedHabits = await response.json()
+
+    const temp: Map<string, Habit> = $habits
+    updatedHabits.forEach((habit) => {
+      temp.set(habit._id, habit)
+    })
+    habits.set(temp)
+  })
     const name = event.target[0].value
     if (name === '') return
 
