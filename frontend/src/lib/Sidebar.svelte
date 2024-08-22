@@ -72,3 +72,22 @@
   </ul>
 </section>
 
+<style>
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid black;
+    height: 100%;
+  }
+  ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+  }
+</style>
