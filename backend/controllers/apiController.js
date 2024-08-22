@@ -22,3 +22,10 @@ exports.createHabit = async(req, res) => {
   res.json({ newHabitID: newHabit._id})
 }
 
+exports.deleteHabit = async(req, res) => {
+  if (!req.body) {
+    return res.json({ error: 'Missing body' })
+  }
+  const habit = await Habit.findByIdAndDelete(req.body.habitID)
+  res.json({ deletedHabitID: req.body.habitID })
+}
