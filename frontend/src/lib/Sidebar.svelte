@@ -13,18 +13,32 @@
     })
     habits.set(temp)
   })
+
+  async function addNewHabit(event: Event): Promise<void> {
     const name = event.target[0].value
     if (name === '') return
 
-    const id: string = uuid()
-    const temp: Map<string, Habit> = $habits
-    temp.set(id, {
-      id,
-      name,
-      instances: []
+    const data = new URLSearchParams()
+    data.append('name', name)
+    data.append('user', $userData)
+
+    const addHabitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
+      method: 'POST',
+      body: data
     })
 
-    habits.set(temp)
+    const { newHabitID } = await addHabitResponse.json()
+    console.log('Added new habit: ', newHabitID)
+
+    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
+    const updatedHabits = await habitRetrieveResponse.json()
+
+    const tempHabits: Map<string, Habit> = $habits
+    updatedHabits.forEach((habit) => {
+      tempHabits.set(habit._id, habit)
+    })
+    habits.set(tempHabits)
+    
 
     event.target[0].value = ''
   }

@@ -4,9 +4,7 @@
 
 <svelte:head><title>Habit Tracker</title></svelte:head>
 <header>
-  <a href="/">
-    <h1>Habit Tracker</h1>
-  </a>
+  <h1>Habit Tracker</h1>
 </header>
 <main>
   <Sidebar/>
