@@ -29,10 +29,39 @@
 
     goto('/')
   }
+
+  async function doHabit(id: string): void {
+    const updatedHabit: Habit = $habits.get(id)
+    updatedHabit.instances.push(new Date())
+
+    const data = new URLSearchParams()
+    data.append('habitID', updatedHabit._id)
+    data.append('user', $userData)
+    data.append('name', updatedHabit.name)
+    data.append('instances', updatedHabit.instances.toString())
+
+    const updateResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
+      method: 'PUT',
+      body: data
+    })
+
+    const { updatedHabitID } = await updateResponse.json()
+    console.log('Updated habit: ', updatedHabitID)
+
+    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
+    const updatedHabits = await habitRetrieveResponse.json()
+
+    const tempHabits: Map<string, Habit> = $habits
+    updatedHabits.forEach((habit) => {
+      tempHabits.set(habit._id, habit)
+    })
+    habits.set(tempHabits)
+  }
 </script>
 
 <h1>{habit.name}</h1>
 <ul>
+  <button on:click={() => doHabit(data.id)}>I did it!</button>
   {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
     <li>{new Date(instance).toLocaleString()}</li>
   {/each}
