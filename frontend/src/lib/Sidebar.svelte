@@ -86,5 +86,20 @@
     margin: 0;
     padding: 0;
     overflow: auto;
+    overflow-x: hidden;
+    & li:nth-child(even) {
+      background-color: lightgray;
+    }
+  }
+  li {
+    list-style: none;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    padding-left: 1em;
+    width: 100%;
+    & a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 </style>
