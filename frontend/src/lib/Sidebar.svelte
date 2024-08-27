@@ -4,7 +4,6 @@
   import { habits } from '../stores/habits'
   import { userData } from '../stores/userData'
 
-  function addNewHabit(event: Event): void {
   onMount(async() => {
     const response = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
     const updatedHabits = await response.json()
@@ -45,6 +44,12 @@
     event.target[0].value = ''
   }
 
+  function getMostRecentInstanceDate(id: number): String {
+    const tempInstances = $habits.get(id).instances
+    tempInstances.sort((a, b) => {
+      return new Date(b).getTime() - new Date(a).getTime()
+    }) 
+    return tempInstances.length > 0 ? new Date(tempInstances[0]).toLocaleDateString() : 'No attempts yet'
   }
 
 </script>
@@ -58,7 +63,7 @@
     {#each Array.from($habits.values()) as habit}
       <li class="habit">
         <a href="/{habit._id}"><h3>{habit.name}</h3></a>
-        <p>How many times: {habit.instances.length}</p>
+        <p>Last done: {getMostRecentInstanceDate(habit._id)}</p>
       </li>
     {/each}
   </ul>
