@@ -33,7 +33,7 @@
 
 <h1>{habit.name}</h1>
 <ul>
-  {#each habit.instances as instance}
+  {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
     <li>{new Date(instance).toLocaleString()}</li>
   {/each}
 </ul>
