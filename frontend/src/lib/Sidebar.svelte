@@ -45,13 +45,6 @@
     event.target[0].value = ''
   }
 
-  function doHabit(id: number): void {
-    const temp = $habits
-    temp.get(id).instances.push({
-      habitId: id,
-      date: new Date()
-    })
-    habits.set(temp)
   }
 
 </script>
@@ -66,7 +59,6 @@
       <li class="habit">
         <a href="/{habit._id}"><h3>{habit.name}</h3></a>
         <p>How many times: {habit.instances.length}</p>
-        <button on:click={() => doHabit(habit._id)}>+</button>
       </li>
     {/each}
   </ul>
