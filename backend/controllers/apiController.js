@@ -29,3 +29,18 @@ exports.deleteHabit = async(req, res) => {
   const habit = await Habit.findByIdAndDelete(req.body.habitID)
   res.json({ deletedHabitID: req.body.habitID })
 }
+
+exports.updateHabit = async(req, res) => {
+  if (!req.body) {
+    return res.json({ error: 'Missing body' })
+  }
+  const instances = req.body.instances.split(',').map((v) => new Date(v))
+  const updatedHabit = new Habit({
+    _id: req.body.habitID,
+    user: req.body.user,
+    name: req.body.name,
+    instances
+  })
+  await Habit.findByIdAndUpdate(req.body.habitID, updatedHabit)
+  res.json({ updatedHabitID: req.body.habitID })
+}
