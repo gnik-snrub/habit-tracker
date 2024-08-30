@@ -31,10 +31,34 @@
     data.append('user', $userData)
     data.append('name', updatedHabit.name)
     data.append('instances', updatedHabit.instances.toString())
+    data.append('notes', updatedHabit.notes)
 
     const updateResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
       method: 'PUT',
       body: data
+    })
+
+    const { updatedHabitID } = await updateResponse.json()
+    console.log('Updated habit: ', updatedHabitID)
+
+    updateHabitStore()
+  }
+
+  async function saveNotes(e: SubmitEvent): Promise<void> {
+    const notes = (e.target as HTMLFormElement).notes.value
+    const updatedHabit: Habit = $habits.get(data.id)
+    updatedHabit.notes = notes
+
+    const body = new URLSearchParams()
+    body.append('habitID', updatedHabit._id)
+    body.append('user', $userData)
+    body.append('name', updatedHabit.name)
+    body.append('instances', updatedHabit.instances.toString())
+    body.append('notes', updatedHabit.notes)
+
+    const updateResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
+      method: 'PUT',
+      body
     })
 
     const { updatedHabitID } = await updateResponse.json()
@@ -62,4 +86,8 @@
     <li>{new Date(instance).toLocaleString()}</li>
   {/each}
 </ul>
+<form on:submit|preventDefault={saveNotes}>
+  <textarea name="notes" id="" cols="30" rows="10" value={habit.notes}></textarea>
+  <button>Save</button>
+</form>
 <button on:click={deleteHabit}>Delete Habit</button>

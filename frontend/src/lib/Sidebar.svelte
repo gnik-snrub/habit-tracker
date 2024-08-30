@@ -39,7 +39,6 @@
       tempHabits.set(habit._id, habit)
     })
     habits.set(tempHabits)
-    
 
     event.target[0].value = ''
   }
