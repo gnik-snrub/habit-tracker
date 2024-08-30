@@ -6,7 +6,7 @@ exports.getHabits = async(req, res) => {
   if (!user) {
     return res.json({ error: 'User not found' })
   }
-  const habits = await Habit.find({ user: user._id }, 'name instances')
+  const habits = await Habit.find({ user: user._id }, 'name instances notes')
   res.json(habits)
 }
 
@@ -17,6 +17,7 @@ exports.createHabit = async(req, res) => {
   const newHabit = new Habit({
     user: req.body.user,
     name: req.body.name,
+    notes: '',
   })
   await newHabit.save()
   res.json({ newHabitID: newHabit._id})
@@ -39,7 +40,8 @@ exports.updateHabit = async(req, res) => {
     _id: req.body.habitID,
     user: req.body.user,
     name: req.body.name,
-    instances
+    instances,
+    notes: req.body.notes,
   })
   await Habit.findByIdAndUpdate(req.body.habitID, updatedHabit)
   res.json({ updatedHabitID: req.body.habitID })

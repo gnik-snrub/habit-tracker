@@ -6,6 +6,7 @@ type Habit = {
   _id: string,
   name: string,
   instances: Instance[],
+  notes?: string,
 }
 
 type Goal = {
