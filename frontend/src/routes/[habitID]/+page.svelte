@@ -6,7 +6,7 @@
 
   $: habit = $habits.get(data.id) ? $habits.get(data.id) : { name: 'Habit not found', instances: [] }
 
-  async function deleteHabit() {
+  async function deleteHabit(): Promise<void> {
     const body = new URLSearchParams()
     body.append('habitID', data.id)
 
@@ -18,19 +18,11 @@
     const { deletedHabitID } = await response.json()
     console.log('Deleted habit: ', deletedHabitID)
 
-    const updatedHabitsResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
-    const updatedHabits = await updatedHabitsResponse.json()
-
-    const temp: Map<string, Habit> = new Map()
-    updatedHabits.forEach((habit) => {
-      temp.set(habit._id, habit)
-    })
-    habits.set(temp)
-
+    updateHabitStore()
     goto('/')
   }
 
-  async function doHabit(id: string): void {
+  async function doHabit(id: string): Promise<void> {
     const updatedHabit: Habit = $habits.get(id)
     updatedHabit.instances.push(new Date())
 
@@ -48,14 +40,18 @@
     const { updatedHabitID } = await updateResponse.json()
     console.log('Updated habit: ', updatedHabitID)
 
+    updateHabitStore()
+  }
+
+  async function updateHabitStore(): Promise<void> {
     const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
     const updatedHabits = await habitRetrieveResponse.json()
 
-    const tempHabits: Map<string, Habit> = $habits
-    updatedHabits.forEach((habit) => {
-      tempHabits.set(habit._id, habit)
+    const temp: Map<string, Habit> = new Map()
+    updatedHabits.forEach((habit: Habit) => {
+      temp.set(habit._id, habit)
     })
-    habits.set(tempHabits)
+    habits.set(temp)
   }
 </script>
 
