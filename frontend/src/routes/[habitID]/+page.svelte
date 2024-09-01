@@ -79,15 +79,72 @@
   }
 </script>
 
-<h1>{habit.name}</h1>
-<ul>
-  <button on:click={() => doHabit(data.id)}>I did it!</button>
-  {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
-    <li>{new Date(instance).toLocaleString()}</li>
-  {/each}
-</ul>
-<form on:submit|preventDefault={saveNotes}>
-  <textarea name="notes" id="" cols="30" rows="10" value={habit.notes}></textarea>
-  <button>Save</button>
-</form>
-<button on:click={deleteHabit}>Delete Habit</button>
+<section>
+  <div>
+    <h1>{habit.name}</h1>
+    <button on:click={() => doHabit(data.id)}>I did it!</button>
+  </div>
+  <form on:submit|preventDefault={saveNotes}>
+    <textarea name="notes" id="" cols="30" rows="10" value={habit.notes}></textarea>
+    <button>Save</button>
+  </form>
+  <ul>
+    <li><h3>History: {habit.instances.length} attempts</h3></li>
+    {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance, i}
+      <li>{new Date(instance).toLocaleString()}</li>
+    {/each}
+  </ul>
+  <button on:click={deleteHabit}>Delete Habit</button>
+</section>
+
+<style>
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 2em;
+    width: 100%;
+    & > * {
+      background-color: #F0F9FF;
+      margin-bottom: 1em;
+      width: 100%;
+    }
+  }
+  div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+  }
+  ul {
+    padding: 1em 0;
+  }
+  li {
+    padding: 0.1em 1em;
+    list-style: none;
+    margin: 0;
+  }
+  h3 {
+    margin: 0;
+    padding-bottom: 0.5em;
+  }
+  h1 {
+    margin: 1em;
+  }
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em 0;
+  }
+  textarea {
+    width: 80%;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+  }
+</style>
