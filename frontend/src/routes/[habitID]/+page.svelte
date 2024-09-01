@@ -2,6 +2,9 @@
   import { habits } from "../../stores/habits"
   import { userData } from "../../stores/userData";
   import { goto } from "$app/navigation"
+
+  import History from "$lib/HabitModules/History.svelte";
+
   export let data: { id: string }
 
   $: habit = $habits.get(data.id) ? $habits.get(data.id) : { name: 'Habit not found', instances: [] }
@@ -88,12 +91,7 @@
     <textarea name="notes" id="" cols="30" rows="10" value={habit.notes}></textarea>
     <button>Save</button>
   </form>
-  <ul>
-    <li><h3>History: {habit.instances.length} attempts</h3></li>
-    {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance, i}
-      <li>{new Date(instance).toLocaleString()}</li>
-    {/each}
-  </ul>
+  <History {habit} />
   <button on:click={deleteHabit}>Delete Habit</button>
 </section>
 
@@ -115,18 +113,6 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-  }
-  ul {
-    padding: 1em 0;
-  }
-  li {
-    padding: 0.1em 1em;
-    list-style: none;
-    margin: 0;
-  }
-  h3 {
-    margin: 0;
-    padding-bottom: 0.5em;
   }
   h1 {
     margin: 1em;
