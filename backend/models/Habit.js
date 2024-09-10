@@ -7,6 +7,7 @@ const HabitSchema = new Schema({
   name: { type: String, required: true },
   instances: { type: [Date], required: true },
   notes: { type: String, required: false },
+  layout: { type: [String], required: true },
 })
 
 module.exports = mongoose.model('Habit', HabitSchema)
