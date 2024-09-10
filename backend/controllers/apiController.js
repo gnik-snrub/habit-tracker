@@ -6,7 +6,7 @@ exports.getHabits = async(req, res) => {
   if (!user) {
     return res.json({ error: 'User not found' })
   }
-  const habits = await Habit.find({ user: user._id }, 'name instances notes')
+  const habits = await Habit.find({ user: user._id }, 'name instances notes layout')
   res.json(habits)
 }
 
@@ -18,6 +18,8 @@ exports.createHabit = async(req, res) => {
     user: req.body.user,
     name: req.body.name,
     notes: '',
+    instances: [],
+    layout: ['Notes', 'History'],
   })
   await newHabit.save()
   res.json({ newHabitID: newHabit._id})
@@ -35,13 +37,16 @@ exports.updateHabit = async(req, res) => {
   if (!req.body) {
     return res.json({ error: 'Missing body' })
   }
+  const habit = await Habit.findById(req.body.habitID)
   const instances = req.body.instances.split(',').map((v) => new Date(v))
+  const layout = req.body.layout.split(',')
   const updatedHabit = new Habit({
     _id: req.body.habitID,
-    user: req.body.user,
-    name: req.body.name,
-    instances,
-    notes: req.body.notes,
+    user: req.body.user || habit.user,
+    name: req.body.name || habit.name,
+    instances: instances,
+    notes: req.body.notes || habit.notes,
+    layout: layout,
   })
   await Habit.findByIdAndUpdate(req.body.habitID, updatedHabit)
   res.json({ updatedHabitID: req.body.habitID })
