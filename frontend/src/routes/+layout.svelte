@@ -28,22 +28,37 @@
   :global(body, html) {
     margin: 0;
     height: 100%;
+    width: 100%;
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+    scrollbar-color: var(--accent-color) var(--dark-bg-shadow-color);
   }
-
   header {
     margin: 0;
-    background-color: rgb(238, 238, 238);
     height: 10vh;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    padding-right: 3em;
+    background-color: var(--accent-color);
+    color: var(--dark-text-color);
+    & > * {
+      margin-left: 1em;
+    }
   }
   h1 {
     padding: 10px;
     margin: 0;
     margin-left: 10px;
+    margin-right: auto;
   }
-
   main {
-    display: flex;
-    flex-flow: row;
+    display: grid;
+    grid-template-columns: 20% 80%;
     height: 90vh;
+    overflow: hidden;
+    & > * {
+      overflow: auto;
+    }
   }
 </style>
