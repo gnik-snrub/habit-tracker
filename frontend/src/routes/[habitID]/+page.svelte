@@ -5,6 +5,7 @@
 
   import History from "$lib/HabitModules/History.svelte";
   import Notes from "$lib/HabitModules/Notes.svelte";
+  import Button from "$lib/Button.svelte";
 
   export let data: { id: string }
 
@@ -63,11 +64,17 @@
 <section>
   <div>
     <h1>{habit.name}</h1>
-    <button on:click={() => doHabit(data.id)}>I did it!</button>
+    <Button
+      --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+      data={{ label: 'I did it!', func: () => {doHabit(data.id)} }}
+    />
   </div>
   <Notes {habit} {updateHabitStore} />
   <History {habit} />
-  <button on:click={deleteHabit}>Delete Habit</button>
+  <Button
+    --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+    data={{ label: 'Delete Habit', func: deleteHabit }}
+  />
 </section>
 
 <style>

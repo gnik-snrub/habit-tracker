@@ -1,10 +1,13 @@
 <script lang="ts">
-  import Sidebar from '../lib/Sidebar.svelte'
+  import Sidebar from '$lib/Sidebar.svelte'
+  import Button from '$lib/Button.svelte'
 </script>
 
 <svelte:head><title>Habit Tracker</title></svelte:head>
 <header>
   <h1>Habit Tracker</h1>
+  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ label: 'Login' }}/>
+  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ label: 'Dark Mode' }}/>
 </header>
 <main>
   <Sidebar/>

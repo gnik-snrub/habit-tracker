@@ -2,6 +2,7 @@
   import { userData } from "../../stores/userData";
   import { habits } from "../../stores/habits";
 
+  import Button from "$lib/Button.svelte";
   export let habit: Habit
   export let updateHabitStore: () => Promise<void>
 
@@ -32,8 +33,11 @@
 
 <form on:submit|preventDefault={saveNotes}>
   <textarea name="notes" id="" cols="30" rows="10" value={habit.notes}></textarea>
-  <button>Save</button>
 </form>
+    <Button
+      --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+      data={{ label: 'Save' }}
+    />
 
 <style>
   form {
