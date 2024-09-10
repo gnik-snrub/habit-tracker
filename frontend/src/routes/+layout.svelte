@@ -13,6 +13,15 @@
 
 
 <style>
+  :global(:root) {
+    --bg-color: rgb(238, 238, 238);
+    --text-color: black;
+    --dark-bg-color: rgb(69, 72, 81);
+    --dark-bg-shadow-color: rgb(56, 59, 66);
+    --dark-text-color: rgb(252, 239, 249);
+    --accent-color: rgb(39, 154, 241);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
   :global(body, html) {
     margin: 0;
     height: 100%;
