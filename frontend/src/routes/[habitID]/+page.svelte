@@ -3,8 +3,8 @@
   import { userData } from "../../stores/userData";
   import { goto } from "$app/navigation"
 
+  import Notes from "$lib/HabitModules/Notes.svelte"
   import History from "$lib/HabitModules/History.svelte";
-  import Notes from "$lib/HabitModules/Notes.svelte";
   import Button from "$lib/Button.svelte";
 
   export let data: { id: string }
@@ -30,6 +30,7 @@
   async function doHabit(id: string): Promise<void> {
     const updatedHabit: Habit = $habits.get(id)
     updatedHabit.instances.push(new Date())
+    console.log(updatedHabit, habit)
 
     const data = new URLSearchParams()
     data.append('habitID', updatedHabit._id)
@@ -37,6 +38,7 @@
     data.append('name', updatedHabit.name)
     data.append('instances', updatedHabit.instances.toString())
     data.append('notes', updatedHabit.notes)
+    data.append('layout', updatedHabit.layout.toString())
 
     const updateResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
       method: 'PUT',
@@ -59,18 +61,30 @@
     })
     habits.set(temp)
   }
+
+  function getModule(module: string): any {
+    switch (module) {
+      case 'Notes':
+        return Notes
+      case 'History':
+        return History
+    }
+  }
 </script>
 
 <section>
-  <div>
+  <div id="habitHeader">
     <h1>{habit.name}</h1>
     <Button
       --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
       data={{ label: 'I did it!', func: () => {doHabit(data.id)} }}
     />
   </div>
-  <Notes {habit} {updateHabitStore} />
-  <History {habit} />
+  <div id="modules">
+    {#each habit.layout as component}
+      <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
+    {/each}
+  </div>
   <Button
     --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
     data={{ label: 'Delete Habit', func: deleteHabit }}
@@ -81,16 +95,23 @@
   section {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0 2em;
+    align-items: center;
     width: 100%;
-    & > * {
-      background-color: #F0F9FF;
-      margin-bottom: 1em;
+    border-left: 1px solid var(--accent-color);
+    & > #modules > *:nth-child(odd) {
+      background-color: var(--dark-bg-shadow-color);
+    }
+    & > *, #modules > * {
       width: 100%;
     }
   }
-  div {
+  #modules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  div:not(#modules) {
     display: flex;
     justify-content: flex-start;
     align-items: center;
