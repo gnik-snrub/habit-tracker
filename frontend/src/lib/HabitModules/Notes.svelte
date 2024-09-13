@@ -8,6 +8,7 @@
   export let updateHabitStore: () => Promise<void>
 
   async function saveNotes(e: SubmitEvent): Promise<void> {
+    isSaving = true
     const notes = (e.target as HTMLFormElement).notes.value
     const updatedHabit: Habit = $habits.get(habit._id)
     updatedHabit.notes = notes
@@ -28,15 +29,18 @@
     const { updatedHabitID } = await updateResponse.json()
     console.log('Updated habit: ', updatedHabitID)
 
+    saveDone = true
+    setTimeout(() => { saveDone = isSaving = false }, 500)
     updateHabitStore()
   }
 
+  let saveDone: boolean, isSaving: boolean = false
 </script>
 
 <section>
   <h3>Notes</h3>
   <form on:submit|preventDefault={saveNotes}>
-    <textarea name="notes" id="" cols="30" rows="10" value={habit.notes ? habit.notes : ''}></textarea>
+    <textarea name="notes" id="" cols="30" rows="10" value={saveDone ? 'Saved!' : isSaving ? 'Saving...' : habit.notes ? habit.notes : ''}></textarea>
     <Button
       --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
       data={{ label: 'Save' }}
