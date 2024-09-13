@@ -70,6 +70,8 @@
         return History
     }
   }
+
+  let confirmDelete = false
 </script>
 
 <section>
@@ -79,16 +81,27 @@
       --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
       data={{ label: 'I did it!', func: () => {doHabit(data.id)} }}
     />
+    {#if !confirmDelete}
+      <Button
+        --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+        data={{ label: 'Delete Habit', func: () => {confirmDelete = true} }}
+      />
+    {:else}
+      <Button
+        --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+        data={{ label: 'Cancel', func: () => {confirmDelete = false} }}
+      />
+      <Button
+        --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+        data={{ label: 'Delete Habit', func: () => {deleteHabit()} }}
+      />
+    {/if}
   </div>
   <div id="modules">
     {#each habit.layout as component}
       <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
     {/each}
   </div>
-  <Button
-    --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-    data={{ label: 'Delete Habit', func: deleteHabit }}
-  />
 </section>
 
 <style>
