@@ -21,5 +21,6 @@
     border: 1px solid var(--colorTwo);
     color: var(--colorTwo);
     background-color: var(--colorOne);
+    outline: none;
   }
 </style>
