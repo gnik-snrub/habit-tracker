@@ -5,7 +5,7 @@
 
 <svelte:head><title>Habit Tracker</title></svelte:head>
 <header>
-  <h1>Habit Tracker</h1>
+  <a href="/"><h1>Habit Tracker</h1></a>
   <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ label: 'Login' }}/>
   <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ label: 'Dark Mode' }}/>
 </header>
@@ -32,6 +32,10 @@
     background-color: var(--dark-bg-color);
     color: var(--dark-text-color);
     scrollbar-color: var(--accent-color) var(--dark-bg-shadow-color);
+    & a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
   header {
     margin: 0;
