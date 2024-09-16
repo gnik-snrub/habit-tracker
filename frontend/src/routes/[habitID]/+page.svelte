@@ -72,6 +72,7 @@
   }
 
   let confirmDelete = false
+  let goalToggle = false
 </script>
 
 <section>
@@ -91,6 +92,21 @@
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
         data={{ label: 'Delete Habit', func: () => {deleteHabit()} }}
       />
+    {/if}
+    {#if !goalToggle}
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+        data={{ label: 'Set a goal', func: () => {goalToggle = true} }}
+      />
+    {:else}
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+        data={{ label: 'Cancel', func: () => {goalToggle = false} }}
+      />
+      <form on:submit|preventDefault={createNewGoal}>
+        <input type="text" placeholder="New Goal"/>
+        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+          data={{ label: 'Create', func: () => {} }}
+        />
+      </form>
     {/if}
   </div>
   <div id="modules">
@@ -129,4 +145,14 @@
   h1 {
     margin: 1em;
   }
+  input {
+    padding: 0.9em 0.5em;
+    border: 1px solid var(--accent-color);
+    background-color: var(--dark-bg-shadow-color);
+    color: var(--dark-text-color);
+    &:focus {
+      outline: none;
+    }
+  }
+
 </style>
