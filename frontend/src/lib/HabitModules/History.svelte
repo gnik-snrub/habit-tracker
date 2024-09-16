@@ -24,7 +24,6 @@
   div {
     width: 100%;
     margin: 1.5em 0;
-    background-color: var(--dark-bg-shadow-color);
     border-radius: 5px;
   }
   ul {
