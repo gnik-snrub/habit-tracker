@@ -77,22 +77,18 @@
 <section>
   <div id="habitHeader">
     <h1>{habit.name}</h1>
-    <Button
-      --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+    <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
       data={{ label: 'I did it!', func: () => {doHabit(data.id)} }}
     />
     {#if !confirmDelete}
-      <Button
-        --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
         data={{ label: 'Delete Habit', func: () => {confirmDelete = true} }}
       />
     {:else}
-      <Button
-        --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
         data={{ label: 'Cancel', func: () => {confirmDelete = false} }}
       />
-      <Button
-        --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
         data={{ label: 'Delete Habit', func: () => {deleteHabit()} }}
       />
     {/if}
