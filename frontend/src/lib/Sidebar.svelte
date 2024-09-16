@@ -97,7 +97,7 @@
     display: flex;
     border-bottom: 1px solid var(--accent-color);
     & > input {
-      padding: 0.1em 0.5em;
+      padding: 0.9em 0.5em;
       border: 1px solid var(--accent-color);
       width: 100%;
       background-color: var(--dark-bg-shadow-color);
@@ -109,6 +109,14 @@
       border: none;
       color: var(--dark-text-color);
       background-color: inherit;
+      border-left: 1px solid var(--accent-color);
+      transition: 0.3s;
+      &:focus, &:hover {
+        background-color: var(--dark-bg-color);
+      }
+    }
+    & > *:focus {
+      outline: none;
     }
   }
   li {
@@ -120,8 +128,6 @@
     padding-right: 2em;
     width: 100%;
     & a {
-      text-decoration: none;
-      color: inherit;
       overflow: hidden;
       white-space: nowrap;
     }
