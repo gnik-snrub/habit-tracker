@@ -146,10 +146,11 @@
     flex-direction: column;
     width: 100%;
     margin-bottom: 1em;
+    & > * {
+      margin-left: 2em;
+    }
   }
   #headerButtons {
-    margin-left: 0.5em;
-    width: 100%;
     display: flex;
     align-items: center;
     height: 2em;
