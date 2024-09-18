@@ -78,41 +78,45 @@
 <section>
   <div id="habitHeader">
     <h1>{habit.name}</h1>
+    <div id="headerButtons">
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
         data={{ label: 'Check in', func: () => {doHabit(data.id)} }}
       />
+      {#if !goalToggle}
+        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+          data={{ label: 'Set a goal', func: () => {goalToggle = true} }}
+        />
+      {:else}
+        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+          data={{ label: 'Cancel', func: () => {goalToggle = false} }}
+        />
+        <form on:submit|preventDefault={createNewGoal}>
+          <input type="text" placeholder="New Goal"/>
+          <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+            data={{ label: 'Create', func: () => {} }}
+          />
+        </form>
+      {/if}
+    </div>
+  </div>
+  <div id="modules">
+    {#each habit.layout as component}
+      <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
+    {/each}
+  </div>
+  <div id="deleteButtonArea">
     {#if !confirmDelete}
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Delete Habit', func: () => {confirmDelete = true} }}
+        data={{ label: 'Delete habit', func: () => {confirmDelete = true} }}
       />
     {:else}
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
         data={{ label: 'Cancel', func: () => {confirmDelete = false} }}
       />
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Delete Habit', func: () => {deleteHabit()} }}
+        data={{ label: 'Confirm deletion', func: () => {deleteHabit()} }}
       />
     {/if}
-    {#if !goalToggle}
-      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Set a goal', func: () => {goalToggle = true} }}
-      />
-    {:else}
-      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Cancel', func: () => {goalToggle = false} }}
-      />
-      <form on:submit|preventDefault={createNewGoal}>
-        <input type="text" placeholder="New Goal"/>
-        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-          data={{ label: 'Create', func: () => {} }}
-        />
-      </form>
-    {/if}
-  </div>
-  <div id="modules">
-    {#each habit.layout as component}
-      <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
-    {/each}
   </div>
 </section>
 
@@ -136,11 +140,25 @@
     align-items: center;
     justify-content: center;
   }
-  div:not(#modules) {
+  #habitHeader {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
     width: 100%;
+    margin-bottom: 1em;
+  }
+  #headerButtons {
+    margin-left: 0.5em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 2em;
+  }
+  #deleteButtonArea {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 2em;
   }
   h1 {
     margin: 1em;
