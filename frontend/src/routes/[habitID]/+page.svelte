@@ -78,9 +78,9 @@
 <section>
   <div id="habitHeader">
     <h1>{habit.name}</h1>
-    <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-      data={{ label: 'I did it!', func: () => {doHabit(data.id)} }}
-    />
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+        data={{ label: 'Check in', func: () => {doHabit(data.id)} }}
+      />
     {#if !confirmDelete}
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
         data={{ label: 'Delete Habit', func: () => {confirmDelete = true} }}
