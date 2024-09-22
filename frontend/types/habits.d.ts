@@ -9,13 +9,21 @@ type Habit = {
   notes?: string,
 }
 
+declare enum goalTimeframe {
+  Daily = "Daily",
+  Weekly = "Weekly",
+  Monthly = "Monthly",
+  Yearly = "Yearly"
+}
+
 type Goal = {
   name: string,
-  habitID: string,
-  dueDate?: Date,
+  creationDate: Date,
+  startDate?: Date,
+  endDate?: Date,
   goalTarget?: number,
-  goalFrequency?: number,
-  completed?: boolean
+  goalFrequency?: {timeframe: goalTimeframe, amount: number},
+  goalCompleted?: boolean
 }
 
 export type {
