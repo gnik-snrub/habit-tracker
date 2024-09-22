@@ -15,10 +15,9 @@
   <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ label: 'Dark Mode' }}/>
 </header>
 <main style:grid-template-columns={showSidebar ? '20% 80%' : '0 100%'}>
-  <Sidebar toggleSidebar/>
+  <Sidebar toggleFunc={() => {toggleSidebar()}}/>
   <slot/>
 </main>
-<button id="toggleSidebar" on:click={toggleSidebar} style:left={showSidebar ? '20%' : '0'}>{toggleSidebar ? '←' : '→'}</button>
 
 <style>
   :global(:root) {
@@ -40,23 +39,6 @@
     & a {
       text-decoration: none;
       color: inherit;
-    }
-  }
-  #toggleSidebar {
-    transition: 0.3s, left 1s;
-    position: absolute;
-    top: 10%;
-    border-radius: 0;
-    border: var(--accent-color) 1px solid;
-    background-color: inherit;
-    color: var(--dark-text-color);
-    left: 0;
-    width: 1.5em;
-    padding: 0.86em 0em;
-    z-index: 100;
-    &:hover, &:focus {
-      background-color: var(--accent-color);
-      color: var(--dark-text-color);
     }
   }
   header {

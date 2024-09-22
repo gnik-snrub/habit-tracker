@@ -51,9 +51,15 @@
     return tempInstances.length > 0 ? new Date(tempInstances[0]).toLocaleDateString() : 'No attempts yet'
   }
 
+  export let toggleFunc: () => void 
+  let showSidebar = true
+  function toggleClick(): void {
+    showSidebar = !showSidebar
+    toggleFunc()
+  }
 </script>
 
-<section>
+<section class:hide={showSidebar ? false : true}>
   <form on:submit|preventDefault={addNewHabit}>
     <input type="text" id="name" placeholder="Habit name" />
     <button type="submit">Add</button>
@@ -67,8 +73,13 @@
     {/each}
   </ul>
 </section>
+<button id="toggleSidebar" on:click={toggleClick} style:left={showSidebar ? '20%' : '0'}>{showSidebar ? '←' : '→'}</button>
 
 <style>
+  .hide {
+    background-color: var(--dark-bg-shadow-color);
+    color: var(--dark-bg-shadow-color);
+  }
   section {
     display: flex;
     flex-direction: column;
@@ -76,6 +87,7 @@
     border-right: 1px solid var(--accent-color);
     height: 100%;
     width: 100%;
+    transition: 1s;
   }
   ul {
     position: relative;
@@ -120,6 +132,9 @@
     }
   }
   li {
+    white-space: nowrap;
+    overflow: hidden;
+    max-height: 10%;
     list-style: none;
     display: grid;
     align-items: center;
@@ -134,6 +149,23 @@
     & > * {
       padding: 0 0.7em;
       margin: 0;
+    }
+  }
+  #toggleSidebar {
+    transition: 0.3s, left 1s;
+    position: absolute;
+    top: 10%;
+    border-radius: 0;
+    border: var(--accent-color) 1px solid;
+    background-color: inherit;
+    color: var(--dark-text-color);
+    left: 0;
+    width: 1.5em;
+    padding: 0.86em 0em;
+    z-index: 100;
+    &:hover, &:focus {
+      background-color: var(--accent-color);
+      color: var(--dark-text-color);
     }
   }
 </style>
