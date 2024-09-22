@@ -73,7 +73,9 @@
     {/each}
   </ul>
 </section>
-<button id="toggleSidebar" on:click={toggleClick} style:left={showSidebar ? '20%' : '0'}>{showSidebar ? '←' : '→'}</button>
+  <button id="toggleSidebar" on:click={toggleClick} style:left={showSidebar ? '20%' : '0'}>
+    <p style:transform={showSidebar ? '' : 'scaleX(-1)'}>←</p>
+  </button>
 
 <style>
   .hide {
@@ -133,8 +135,7 @@
   }
   li {
     white-space: nowrap;
-    overflow: hidden;
-    max-height: 10%;
+    height: 13%;
     list-style: none;
     display: grid;
     align-items: center;
@@ -166,6 +167,10 @@
     &:hover, &:focus {
       background-color: var(--accent-color);
       color: var(--dark-text-color);
+    }
+    & > p {
+      margin: 0;
+      transition: 1s;
     }
   }
 </style>
