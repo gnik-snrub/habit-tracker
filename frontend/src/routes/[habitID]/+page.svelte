@@ -1,11 +1,13 @@
 <script lang="ts">
   import { habits } from "../../stores/habits"
   import { userData } from "../../stores/userData";
+  import { goals } from "../../stores/goals";
   import { goto } from "$app/navigation"
 
   import Notes from "$lib/HabitModules/Notes.svelte"
   import History from "$lib/HabitModules/History.svelte";
   import Button from "$lib/Button.svelte";
+  import Goal from '$lib/HabitModules/Goal.svelte'
 
   export let data: { id: string }
 
@@ -30,7 +32,6 @@
   async function doHabit(id: string): Promise<void> {
     const updatedHabit: Habit = $habits.get(id)
     updatedHabit.instances.push(new Date())
-    console.log(updatedHabit, habit)
 
     const data = new URLSearchParams()
     data.append('habitID', updatedHabit._id)
@@ -73,6 +74,29 @@
 
   let confirmDelete = false
   let goalToggle = false
+
+  async function createNewGoal(event: Event): Promise<void> {
+    const name = event.target[0].value
+    if (name === '') return
+    event.target[0].value = ''
+    event.target[0].placeholder = 'Saving...'
+
+    const data = new URLSearchParams()
+    data.append('name', name)
+    data.append('user', $userData)
+    data.append('habitID', habit._id)
+
+    const addGoalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals`, {
+      method: 'POST',
+      body: data
+    })
+
+    const { newGoalID } = await addGoalResponse.json()
+    console.log('Added new goal: ', newGoalID)
+
+    event.target[0].placeholder = 'New Goal'
+  }
+
 </script>
 
 <section>
@@ -159,7 +183,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    margin-bottom: 2em;
+    margin: 2em 0;
   }
   h1 {
     margin: 1em;
