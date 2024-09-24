@@ -18,6 +18,7 @@ declare enum goalTimeframe {
 
 type Goal = {
   name: string,
+  habit: string,
   creationDate: Date,
   startDate?: Date,
   endDate?: Date,

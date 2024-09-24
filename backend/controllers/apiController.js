@@ -54,7 +54,7 @@ exports.updateHabit = async(req, res) => {
 }
 
 exports.getGoals = async(req, res) => {
-  const goals = await Goal.find({habit: req.body.habitID})
+  const goals = await Goal.find({user: req.params.userID}, 'name habit creationDate startDate endDate goalTarget goalFrequency goalCompleted')
   res.json(goals)
 }
 

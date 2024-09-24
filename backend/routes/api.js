@@ -7,7 +7,7 @@ router.post('/habits', apiController.createHabit)
 router.delete('/habits', apiController.deleteHabit)
 router.put('/habits', apiController.updateHabit)
 
-router.get('/goals/:habitID', apiController.getGoals)
+router.get('/goals/:userID', apiController.getGoals)
 router.post('/goals', apiController.createGoal)
 router.delete('/goals', apiController.deleteGoal)
 router.put('/goals', apiController.updateGoal)
