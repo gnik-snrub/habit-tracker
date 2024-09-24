@@ -1,5 +1,6 @@
 const Habit = require('../models/Habit')
 const User = require('../models/User')
+const Goal = require('../models/Goal')
 
 exports.getHabits = async(req, res) => {
   const user = await User.findById(req.params.userID)
@@ -50,4 +51,18 @@ exports.updateHabit = async(req, res) => {
   })
   await Habit.findByIdAndUpdate(req.body.habitID, updatedHabit)
   res.json({ updatedHabitID: req.body.habitID })
+}
+
+exports.getGoals = async(req, res) => {
+}
+
+exports.createGoal = async(req, res) => {
+}
+
+exports.deleteGoal = async(req, res) => {
+  
+}
+
+exports.updateGoal = async(req, res) => {
+  
 }
