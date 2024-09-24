@@ -12,7 +12,7 @@ const GoalSchema = new Schema({
   goalTarget: { type: Number, required: false },
   goalFrequency: { type: {
     timeframe: { type: String, enum: ['Daily', 'Weekly', 'Monthly']},
-    amount: { type: number}},
+    amount: { type: Number}},
     required: false },
   goalCompleted: { type: Boolean, required: false },
 })
