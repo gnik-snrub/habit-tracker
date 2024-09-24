@@ -54,9 +54,23 @@ exports.updateHabit = async(req, res) => {
 }
 
 exports.getGoals = async(req, res) => {
+  const goals = await Goal.find({habit: req.body.habitID})
+  res.json(goals)
 }
 
 exports.createGoal = async(req, res) => {
+  if (!req.body) {
+    return res.json({ error: 'Missing body' })
+  }
+  const newGoal = new Goal({
+    name: req.body.name,
+    habit: req.body.habitID,
+    user: req.body.user,
+    creationDate: new Date(),
+  })
+  await newGoal.save()
+  console.log(newGoal)
+  res.json({ newGoalID: newGoal._id})
 }
 
 exports.deleteGoal = async(req, res) => {

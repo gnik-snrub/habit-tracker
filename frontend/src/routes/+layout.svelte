@@ -2,6 +2,22 @@
   import Sidebar from '$lib/Sidebar.svelte'
   import Button from '$lib/Button.svelte'
 
+  import {onMount} from 'svelte';
+  import { userData } from '../stores/userData'
+  import { habits } from '../stores/habits'
+
+  onMount(async() => {
+    const response = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
+    const updatedHabits = await response.json()
+
+    const temp: Map<string, Habit> = $habits
+    updatedHabits.forEach((habit) => {
+      temp.set(habit._id, habit)
+    })
+    habits.set(temp)
+  })
+
+
   let showSidebar = true
   function toggleSidebar(): void {
     showSidebar = !showSidebar
