@@ -29,10 +29,7 @@
     goto('/')
   }
 
-  async function doHabit(id: string): Promise<void> {
-    const updatedHabit: Habit = $habits.get(id)
-    updatedHabit.instances.push(new Date())
-
+  async function updateHabit(updatedHabit: Habit): Promise<void> {
     const data = new URLSearchParams()
     data.append('habitID', updatedHabit._id)
     data.append('user', $userData)
@@ -50,6 +47,12 @@
     console.log('Updated habit: ', updatedHabitID)
 
     updateHabitStore()
+  }
+
+  async function doHabit(id: string): Promise<void> {
+    const updatedHabit: Habit = $habits.get(id)
+    updatedHabit.instances.push(new Date())
+    updateHabit(updatedHabit)
   }
 
   async function updateHabitStore(): Promise<void> {
