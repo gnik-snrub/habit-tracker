@@ -1,14 +1,13 @@
 <script lang="ts">
   import { habits } from "../../stores/habits"
   import { userData } from "../../stores/userData";
-  import { goals } from "../../stores/goals";
   import { goto } from "$app/navigation"
 
   import Notes from "$lib/HabitModules/Notes.svelte"
   import History from "$lib/HabitModules/History.svelte";
   import Button from "$lib/Button.svelte";
-  import Goal from '$lib/HabitModules/Goal.svelte'
   import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
+  import Goals from "../../lib/HabitModules/Goals.svelte";
 
   export let data: { id: string }
 
@@ -73,6 +72,8 @@
         return Notes
       case 'History':
         return History
+      case 'Goals':
+        return Goals
     }
   }
 
