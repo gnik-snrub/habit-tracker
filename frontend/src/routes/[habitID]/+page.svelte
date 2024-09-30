@@ -8,6 +8,7 @@
   import History from "$lib/HabitModules/History.svelte";
   import Button from "$lib/Button.svelte";
   import Goal from '$lib/HabitModules/Goal.svelte'
+  import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
 
   export let data: { id: string }
 
@@ -131,8 +132,10 @@
     </div>
   </div>
   <div id="modules">
-    {#each habit.layout as component}
-      <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
+    {#each habit.layout as component, i}
+      <ModuleWrapper {habit} index={i} reorder={reorder}>
+        <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
+      </ModuleWrapper>
     {/each}
   </div>
   <div id="deleteButtonArea">
