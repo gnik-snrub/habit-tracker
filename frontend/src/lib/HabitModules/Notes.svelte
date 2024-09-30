@@ -37,23 +37,15 @@
   let saveDone: boolean, isSaving: boolean = false
 </script>
 
-<section>
-  <h3>Notes</h3>
-  <form on:submit|preventDefault={saveNotes}>
-    <textarea name="notes" id="" cols="30" rows="10" value={saveDone ? 'Saved!' : isSaving ? 'Saving...' : habit.notes ? habit.notes : ''}></textarea>
-  </form>
-</section>
+<h3>Notes</h3>
+<form on:submit|preventDefault={saveNotes}>
+  <textarea name="notes" id="" cols="30" rows="10" value={saveDone ? 'Saved!' : isSaving ? 'Saving...' : habit.notes ? habit.notes : ''}></textarea>
   <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)">
     Save
   </Button>
+</form>
 
 <style>
-  section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
   form {
     width: 100%;
     display: flex;

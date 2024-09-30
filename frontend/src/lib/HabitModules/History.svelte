@@ -1,26 +1,19 @@
 <script lang="ts">
   export let habit: Habit
   export let updateHabitStore: () => Promise<void>
+  updateHabitStore = (): Promise<void> => { return }
 </script>
 
-<section>
-  <div>
-    <h3>History: {habit.instances.length} attempts</h3>
-    <ul>
-      {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
-        <li>{new Date(instance).toLocaleString()}</li>
-      {/each}
-    </ul>
-  </div>
-</section>
+<div>
+  <h3>History: {habit.instances.length} attempts</h3>
+  <ul>
+    {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
+      <li>{new Date(instance).toLocaleString()}</li>
+    {/each}
+  </ul>
+</div>
 
 <style>
-  section {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-  }
   div {
     width: 100%;
     margin: 1.5em 0;
