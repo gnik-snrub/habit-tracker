@@ -102,6 +102,14 @@
     event.target[0].placeholder = 'New Goal'
   }
 
+  async function reorder(index: number, newIndex: number): Promise<void> {
+    const a = habit.layout[index]
+    const b = habit.layout[newIndex]
+    habit.layout[index] = b
+    habit.layout[newIndex] = a
+
+    updateHabit(habit)
+  }
 </script>
 
 <section>
