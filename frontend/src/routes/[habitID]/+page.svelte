@@ -107,21 +107,25 @@
     <h1>{habit.name}</h1>
     <div id="headerButtons">
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Check in', func: () => {doHabit(data.id)} }}
-      />
+        data={{ func: () => {doHabit(data.id)} }}>
+        Check in
+      </Button>
       {#if !goalToggle}
         <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-          data={{ label: 'Set a goal', func: () => {goalToggle = true} }}
-        />
+          data={{ func: () => {goalToggle = true} }}>
+          Set a Goal
+        </Button>
       {:else}
         <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-          data={{ label: 'Cancel', func: () => {goalToggle = false} }}
-        />
+          data={{ func: () => {goalToggle = false} }}>
+          Cancel
+        </Button>
         <form on:submit|preventDefault={createNewGoal}>
           <input type="text" placeholder="New Goal"/>
           <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-            data={{ label: 'Create', func: () => {} }}
-          />
+            data={{ func: () => {} }}>
+            Create
+          </Button>
         </form>
       {/if}
     </div>
@@ -134,15 +138,18 @@
   <div id="deleteButtonArea">
     {#if !confirmDelete}
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Delete habit', func: () => {confirmDelete = true} }}
-      />
+        data={{ func: () => {confirmDelete = true} }}>
+        Delete Habit
+      </Button>
     {:else}
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Cancel', func: () => {confirmDelete = false} }}
-      />
+        data={{ func: () => {confirmDelete = false} }}>
+        Cancel
+      </Button>
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ label: 'Confirm deletion', func: () => {deleteHabit()} }}
-      />
+        data={{ func: () => {deleteHabit()} }}>
+        Confirm deletion
+      </Button>
     {/if}
   </div>
 </section>

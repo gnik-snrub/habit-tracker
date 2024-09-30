@@ -41,8 +41,8 @@
 <svelte:head><title>Habit Tracker</title></svelte:head>
 <header>
   <a href="/"><h1>Habit Tracker</h1></a>
-  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ label: 'Login' }}/>
-  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ label: 'Dark Mode' }}/>
+  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)">Log in</Button>
+  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)">Dark Mode</Button>
 </header>
 <main style:grid-template-columns={showSidebar ? '20% 80%' : '0 100%'}>
   <Sidebar toggleFunc={() => {toggleSidebar()}}/>

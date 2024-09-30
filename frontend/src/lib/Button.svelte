@@ -1,10 +1,8 @@
 <script lang="ts">
-  export let data: {label: string, func?: () => void}
-  const { label, func } = data
-  
+  export let data: {func?: () => void}
 </script>
 
-<button on:click={func}>{label}</button>
+<button on:click={data.func ? data.func : () => {}}><slot/></button>
 
 <style>
   button {

@@ -41,12 +41,11 @@
   <h3>Notes</h3>
   <form on:submit|preventDefault={saveNotes}>
     <textarea name="notes" id="" cols="30" rows="10" value={saveDone ? 'Saved!' : isSaving ? 'Saving...' : habit.notes ? habit.notes : ''}></textarea>
-    <Button
-      --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-      data={{ label: 'Save' }}
-    />
   </form>
 </section>
+  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)">
+    Save
+  </Button>
 
 <style>
   section {
