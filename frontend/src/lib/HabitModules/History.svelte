@@ -17,7 +17,8 @@
   div {
     width: 100%;
     margin: 1.5em 0;
-    border-radius: 5px;
+    outline: 1px solid var(--accent-color);
+    background-color: var(--dark-bg-shadow-color);
   }
   ul {
     display: grid;
@@ -28,9 +29,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     margin: 0;
-    margin-bottom: 1em;
     padding-bottom: 1em;
-    border-bottom: 1px solid var(--accent-color);
   }
   li {
     padding: 0.1em 1em;
@@ -40,7 +39,5 @@
   }
   h3 {
     padding-left: 2em;
-    padding-top: 1em;
-    border-top: 1px solid var(--accent-color);
   }
 </style>
