@@ -104,7 +104,7 @@
     event.target[0].placeholder = 'New Goal'
   }
 
-  async function reorder(index: number, newIndex: number): Promise<void> {
+  function reorder(index: number, newIndex: number): void {
     const a = habit.layout[index]
     const b = habit.layout[newIndex]
     habit.layout[index] = b
@@ -177,9 +177,6 @@
     align-items: center;
     width: 100%;
     border-left: 1px solid var(--accent-color);
-    & > #modules > *:nth-child(odd) {
-      background-color: var(--dark-bg-shadow-color);
-    }
     & > *, #modules > * {
       width: 100%;
     }
