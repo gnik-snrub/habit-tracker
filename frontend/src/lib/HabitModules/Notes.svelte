@@ -37,31 +37,50 @@
   let saveDone: boolean, isSaving: boolean = false
 </script>
 
-<h3>Notes</h3>
-<form on:submit|preventDefault={saveNotes}>
-  <textarea name="notes" id="" cols="30" rows="10" value={saveDone ? 'Saved!' : isSaving ? 'Saving...' : habit.notes ? habit.notes : ''}></textarea>
-  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)">
-    Save
-  </Button>
-</form>
+<div>
+  <h3>Notes</h3>
+  <form on:submit|preventDefault={saveNotes}>
+    <textarea name="notes" id="" cols="30" rows="10"
+      placeholder="Notes about this habit"
+      value={saveDone ? 'Saved!' : isSaving ? 'Saving...' : habit.notes ? habit.notes : ''}
+      required />
+    <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)">
+      Save
+    </Button>
+  </form>
+</div>
 
 <style>
+  div {
+    width: 100%;
+    margin: 1.5em 0;
+    outline: 1px solid var(--accent-color);
+    background-color: var(--dark-bg-shadow-color);
+    display: flex;
+    align-items: center;
+  }
   form {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     padding: 1em 0;
   }
   textarea {
     width: 80%;
     resize: none;
-    border: 1px solid var(--accent-color);
+    border: none;
     outline: none;
     padding: 1em;
-    margin-bottom: 1em;
     border-radius: 5px;
-    background-color: var(--dark-bg-shadow-color);
+    background-color: hsl(from var(--dark-bg-shadow-color) h s calc(l*1.05) );
     color: inherit;
+    transition: 0.3s;
+  }
+  textarea:invalid {
+    background-color: var(--dark-bg-color);
+  }
+  h3 {
+    rotate: -90deg;
   }
 </style>
