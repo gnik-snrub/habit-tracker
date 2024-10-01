@@ -74,6 +74,8 @@
         return History
       case 'Goals':
         return Goals
+      default:
+        return null
     }
   }
 
@@ -142,9 +144,11 @@
   </div>
   <div id="modules">
     {#each habit.layout as component, i}
-      <ModuleWrapper {habit} index={i} reorder={reorder}>
-        <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
-      </ModuleWrapper>
+      {#if component}
+        <ModuleWrapper {habit} index={i} reorder={reorder}>
+          <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
+        </ModuleWrapper>
+      {/if}
     {/each}
   </div>
   <div id="deleteButtonArea">
