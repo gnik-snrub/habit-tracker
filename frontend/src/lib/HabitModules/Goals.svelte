@@ -5,7 +5,7 @@
 
   import { goals as goalsData } from "../../stores/goals"
 
-  let goals = $goalsData.get(habit._id)
+  $: goals = $goalsData.get(habit._id)
 </script>
 
 
