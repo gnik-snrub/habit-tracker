@@ -19,7 +19,19 @@
 </div>
 
 <style>
+  div {
+    width: 100%;
+    margin: 1.5em 0;
+    padding: 1em 0;
+    outline: 1px solid var(--accent-color);
+    background-color: var(--dark-bg-shadow-color);
+    display: flex;
+    align-items: center;
+  }
   li {
     list-style: number;
+  }
+  h3 {
+    rotate: -90deg;
   }
 </style>
