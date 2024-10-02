@@ -52,7 +52,7 @@
   async function doHabit(id: string): Promise<void> {
     const updatedHabit: Habit = $habits.get(id)
     updatedHabit.instances.push(new Date())
-    updateHabit(updatedHabit)
+    await updateHabit(updatedHabit)
   }
 
   async function updateHabitStore(): Promise<void> {
@@ -104,13 +104,27 @@
     event.target[0].placeholder = 'New Goal'
   }
 
-  function reorder(index: number, newIndex: number): void {
+  async function reorder(index: number, newIndex: number): Promise<void> {
     const a = habit.layout[index]
     const b = habit.layout[newIndex]
     habit.layout[index] = b
     habit.layout[newIndex] = a
 
-    updateHabit(habit)
+    await updateHabit(habit)
+  }
+
+  let addModuleToggle = false
+
+  async function addModule(event: Event): Promise<void> {
+    const selectedModule = event.target[0].selectedOptions[0].value
+    if (!selectedModule) {
+      return
+    }
+    habit.layout.push(selectedModule)
+    addModuleToggle = false
+    await updateHabit(habit)
+  }
+
   async function deleteModule(id: number): Promise<void> {
     habit.layout.splice(id, 1)
     await updateHabit(habit)
@@ -140,6 +154,29 @@
           <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
             data={{ func: () => {} }}>
             Create
+          </Button>
+        </form>
+      {/if}
+      {#if !addModuleToggle}
+        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+          data={{ func: () => {console.log(habit.layout); addModuleToggle = true} }}>
+          Add Module
+        </Button>
+      {:else}
+        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+          data={{ func: () => {addModuleToggle = false} }}>
+          Cancel
+        </Button>
+        <form on:submit|preventDefault={addModule}>
+          <select name="module" id="module">
+            <option value="" disabled selected>Select Module</option>
+            <option value="Notes">Notes</option>
+            <option value="History">History</option>
+            <option value="Goals">Goals</option>
+          </select>
+          <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+            data={{ func: () => {} }}>
+            Add
           </Button>
         </form>
       {/if}
@@ -196,6 +233,9 @@
     flex-direction: column;
     width: 100%;
     margin-bottom: 1em;
+    background-color: var(--dark-bg-shadow-color);
+    border-bottom: 1px solid var(--accent-color);
+    padding-bottom: 1em;
     & > * {
       margin-left: 2em;
     }
