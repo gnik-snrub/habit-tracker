@@ -3,15 +3,29 @@
   export let index: number
   export let reorder: (index: number, newIndex: number) => void
   export let habit: Habit
+  export let deleteModule: (index: number) => void
+
+  let toggleDelete: boolean = false
+
+  function handleDelete(): void {
+    deleteModule(index)
+    toggleDelete = false
+  }
 </script>
 
 <section>
   <div class="reorderButtons">
-    {#if index - 1 >= 0}
-      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)" data={{func: () => {reorder(index, index - 1)}}}>▲</Button>
-    {/if}
-    {#if index + 1 < habit.layout.length}
-      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)" data={{func: () => {reorder(index, index + 1)}}}>▼</Button>
+    {#if !toggleDelete}
+      {#if index - 1 >= 0}
+        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)" data={{func: () => {reorder(index, index - 1)}}}>▲</Button>
+      {/if}
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)" data={{func: () => {toggleDelete = true}}}>X</Button>
+      {#if index + 1 < habit.layout.length}
+        <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)" data={{func: () => {reorder(index, index + 1)}}}>▼</Button>
+      {/if}
+    {:else}
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)" data={{func: () => {toggleDelete = false}}}>Cancel</Button>
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)" data={{func: () => {handleDelete()}}}>Delete</Button>
     {/if}
   </div>
   <slot/>
@@ -29,7 +43,7 @@
     flex-direction: column;
     gap: 1em;
     & button {
-      width: 2.5em;
+      width: 4em;
       display: flex;
       align-items: center;
       justify-content: center;

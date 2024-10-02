@@ -111,6 +111,9 @@
     habit.layout[newIndex] = a
 
     updateHabit(habit)
+  async function deleteModule(id: number): Promise<void> {
+    habit.layout.splice(id, 1)
+    await updateHabit(habit)
   }
 </script>
 
@@ -145,7 +148,7 @@
   <div id="modules">
     {#each habit.layout as component, i}
       {#if component}
-        <ModuleWrapper {habit} index={i} reorder={reorder}>
+        <ModuleWrapper {habit} index={i} {reorder} {deleteModule}>
           <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
         </ModuleWrapper>
       {/if}
