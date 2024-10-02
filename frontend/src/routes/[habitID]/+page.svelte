@@ -251,6 +251,9 @@
     background-color: var(--dark-bg-shadow-color);
     border-bottom: 1px solid var(--accent-color);
     padding-bottom: 1em;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     & > * {
       margin-left: 2em;
     }
