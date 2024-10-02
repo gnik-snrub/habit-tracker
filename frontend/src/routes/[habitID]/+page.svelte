@@ -1,6 +1,7 @@
 <script lang="ts">
   import { habits } from "../../stores/habits"
   import { userData } from "../../stores/userData";
+  import { goals } from "../../stores/goals";
   import { goto } from "$app/navigation"
 
   import Notes from "$lib/HabitModules/Notes.svelte"
@@ -102,6 +103,20 @@
     console.log('Added new goal: ', newGoalID)
 
     event.target[0].placeholder = 'New Goal'
+    goalToggle = false
+
+    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`)
+    const fetchedGoals = await goalRetriveResponse.json()
+
+    const tempGoals: Map<string, Goal[]> = new Map()
+    fetchedGoals.forEach((goal: Goal) => {
+      if (tempGoals.has(goal.habit)) {
+        tempGoals.get(goal.habit).push(goal)
+      } else {
+        tempGoals.set(goal.habit, [goal])
+      }
+    })
+    goals.set(tempGoals)
   }
 
   async function reorder(index: number, newIndex: number): Promise<void> {
