@@ -33,10 +33,10 @@
 
 <style>
   section {
-    display: flex;
+    display: grid;
+    place-items: center;
     width: 100%;
-    flex-direction: row;
-    align-items: center;
+    grid-template-columns: auto 90%;
   }
   .reorderButtons {
     display: flex;
