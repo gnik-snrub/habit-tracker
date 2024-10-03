@@ -9,6 +9,7 @@
   import Button from "$lib/Button.svelte";
   import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
   import Goals from "../../lib/HabitModules/Goals.svelte";
+  import CalendarHeatmap from "../../lib/HabitModules/CalendarHeatmap.svelte";
 
   export let data: { id: string }
 
@@ -75,6 +76,8 @@
         return History
       case 'Goals':
         return Goals
+      case 'CalendarHeatmap':
+        return CalendarHeatmap
       default:
         return null
     }
@@ -188,6 +191,7 @@
             <option value="Notes">Notes</option>
             <option value="History">History</option>
             <option value="Goals">Goals</option>
+            <option value="CalendarHeatmap">Calendar</option>
           </select>
           <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
             data={{ func: () => {} }}>
