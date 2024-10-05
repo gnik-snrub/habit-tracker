@@ -21,7 +21,6 @@
 	"dependencies": {
 		"cal-heatmap": "^4.2.4",
 		"chart.js": "^4.4.4",
-		"chartjs-chart-matrix": "^2.0.1",
 		"uuid": "^10.0.0"
 	}
 }
