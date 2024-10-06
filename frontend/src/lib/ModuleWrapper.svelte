@@ -28,7 +28,9 @@
       <Button --colorOne="var(--accent-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{func: () => {handleDelete()}}}>X</Button>
     {/if}
   </div>
-  <slot/>
+  <div class="moduleContent">
+    <slot/>
+  </div>
 </section>
 
 <style>
@@ -48,5 +50,14 @@
       align-items: center;
       justify-content: center;
     }
+  }
+  .moduleContent {
+    width: 100%;
+    margin: 1.5em 0;
+    padding: 1em 0;
+    outline: 1px solid var(--accent-color);
+    background-color: var(--dark-bg-shadow-color);
+    display: flex;
+    align-items: center;
   }
 </style>

@@ -67,28 +67,16 @@
   afterUpdate(generateHeatmap)
 </script>
 
-<div>
-  <h3>
-    Calendar
-  </h3>
-  <div id="calendarWrapper">
-    <div id="cal-heatmap"></div>
-  </div>
+<h3>
+  Calendar
+</h3>
+<div id="calendarWrapper">
+  <div id="cal-heatmap"></div>
 </div>
 
 <style>
   h3 {
     rotate: -90deg;
-  }
-  div:not(#calendarWrapper, #cal-heatmap) {
-    width: 100%;
-    margin: 1.5em 0;
-    padding: 1em 0;
-    outline: 1px solid var(--accent-color);
-    background-color: var(--dark-bg-shadow-color);
-    display: flex;
-    align-items: center;
-    overflow-x: auto;
   }
   #calendarWrapper {
     padding-bottom: 0.5em;

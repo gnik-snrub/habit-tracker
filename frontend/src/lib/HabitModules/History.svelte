@@ -4,26 +4,15 @@
   updateHabitStore = (): Promise<void> => { return }
 </script>
 
-<div>
-  <h3>History</h3>
-  <ul>
-    <li><h4>{habit.instances.length} engagements</h4></li>
-    {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
-      <li>{new Date(instance).toLocaleString()}</li>
-    {/each}
-  </ul>
-</div>
+<h3>History</h3>
+<ul>
+  <li><h4>{habit.instances.length} engagements</h4></li>
+  {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
+    <li>{new Date(instance).toLocaleString()}</li>
+  {/each}
+</ul>
 
 <style>
-  div {
-    width: 100%;
-    margin: 1.5em 0;
-    padding: 1em 0;
-    outline: 1px solid var(--accent-color);
-    background-color: var(--dark-bg-shadow-color);
-    display: flex;
-    align-items: center;
-  }
   ul {
     display: grid;
     grid-template-rows: repeat(5, 2em);
