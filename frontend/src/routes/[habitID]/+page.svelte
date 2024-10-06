@@ -253,7 +253,7 @@
     width: 100%;
     margin-bottom: 1em;
     background-color: var(--dark-bg-shadow-color);
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom: 3px solid var(--accent-color);
     padding-bottom: 1em;
     position: sticky;
     top: 0;
@@ -277,7 +277,7 @@
     margin: 1em;
   }
   input {
-    padding: 0.9em 0.5em;
+    padding: 0.5em;
     border: 1px solid var(--accent-color);
     background-color: var(--dark-bg-shadow-color);
     color: var(--dark-text-color);
@@ -285,5 +285,13 @@
       outline: none;
     }
   }
-
+  select {
+    padding: 0.5em;
+    border: 1px solid var(--accent-color);
+    background-color: var(--dark-bg-shadow-color);
+    color: var(--dark-text-color);
+    &:focus {
+      outline: none;
+    }
+  }
 </style>
