@@ -9,6 +9,7 @@
   import Button from "$lib/Button.svelte";
   import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
   import CalendarHeatmap from "../../lib/HabitModules/CalendarHeatmap.svelte";
+    import Error from "../../lib/HabitModules/Error.svelte";
 
   export let data: { id: string }
 
@@ -76,7 +77,7 @@
       case 'CalendarHeatmap':
         return {componentType: CalendarHeatmap, props: {habit}}
       default:
-        return null
+        return {componentType: Error, props: {}}
     }
   }
 
