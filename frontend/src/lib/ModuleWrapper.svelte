@@ -24,8 +24,8 @@
         <Button --colorOne="var(--accent-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{func: () => {reorder(index, index + 1)}}}>▼</Button>
       {/if}
     {:else}
-      <Button --colorOne="var(--accent-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{func: () => {toggleDelete = false}}}>Cancel</Button>
-      <Button --colorOne="var(--accent-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{func: () => {handleDelete()}}}>Delete</Button>
+      <Button --colorOne="var(--accent-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{func: () => {toggleDelete = false}}}>⮌</Button>
+      <Button --colorOne="var(--accent-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{func: () => {handleDelete()}}}>X</Button>
     {/if}
   </div>
   <slot/>
