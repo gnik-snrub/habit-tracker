@@ -8,7 +8,6 @@
   import History from "$lib/HabitModules/History.svelte";
   import Button from "$lib/Button.svelte";
   import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
-  import Goals from "../../lib/HabitModules/Goals.svelte";
   import CalendarHeatmap from "../../lib/HabitModules/CalendarHeatmap.svelte";
 
   export let data: { id: string }
@@ -74,8 +73,6 @@
         return Notes
       case 'History':
         return History
-      case 'Goals':
-        return Goals
       case 'CalendarHeatmap':
         return CalendarHeatmap
       default:
@@ -190,7 +187,6 @@
             <option value="" disabled selected>Select Module</option>
             <option value="Notes">Notes</option>
             <option value="History">History</option>
-            <option value="Goals">Goals</option>
             <option value="CalendarHeatmap">Calendar</option>
           </select>
           <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
