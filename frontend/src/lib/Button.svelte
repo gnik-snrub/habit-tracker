@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let data: {func?: () => void}
+  export let data: {func?: () => void} | undefined = undefined
 </script>
 
 <button on:click={data.func ? data.func : () => {}}><slot/></button>
