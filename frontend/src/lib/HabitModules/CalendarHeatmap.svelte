@@ -28,10 +28,12 @@
         type: 'month',
         label: {
           position: 'top',
-        }
+        },
+        gutter: 8,
       },
       subDomain: {
         type: 'day',
+        radius: 2,
       },
       date: {
         start: new Date(new Date().setMonth(new Date().getMonth() - 11)),
@@ -46,7 +48,7 @@
       },
       scale: {
         color: {
-          range: ['rgb(39, 154, 241)', 'rgb(252, 239, 249)'],
+          range: ['rgb(59, 62, 69)', 'rgb(39, 154, 241)'],
           type: 'linear',
           domain: [0, 7],
         }
@@ -89,6 +91,7 @@
     overflow-x: auto;
   }
   #calendarWrapper {
+    padding-bottom: 0.5em;
     margin-right: 1em;
     overflow-x: auto;
   }
