@@ -4,8 +4,12 @@
 
   import Button from "$lib/Button.svelte";
 
-  export let habit: Habit
-  export let updateHabitStore: () => Promise<void>
+  export let props: {habit: Habit, updateHabitStore: () => Promise<void>}
+  $: habit = props.habit
+
+  async function updateHabitStore(): Promise<void> {
+    await props.updateHabitStore()
+  }
 
   async function saveNotes(e: SubmitEvent): Promise<void> {
     isSaving = true

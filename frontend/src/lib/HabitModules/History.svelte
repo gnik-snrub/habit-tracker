@@ -1,7 +1,6 @@
 <script lang="ts">
-  export let habit: Habit
-  export let updateHabitStore: () => Promise<void>
-  updateHabitStore = (): Promise<void> => { return }
+  export let props: {habit: Habit}
+  $: habit = props.habit
 </script>
 
 <h3>History</h3>

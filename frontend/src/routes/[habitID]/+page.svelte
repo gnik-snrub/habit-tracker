@@ -70,11 +70,11 @@
   function getModule(module: string): any {
     switch (module) {
       case 'Notes':
-        return Notes
+        return {componentType: Notes, props: { habit, updateHabitStore }}
       case 'History':
-        return History
+        return {componentType: History, props: {habit}}
       case 'CalendarHeatmap':
-        return CalendarHeatmap
+        return {componentType: CalendarHeatmap, props: {habit}}
       default:
         return null
     }
@@ -201,7 +201,7 @@
     {#each habit.layout as component, i}
       {#if component}
         <ModuleWrapper {habit} index={i} {reorder} {deleteModule}>
-          <svelte:component this={getModule(component)} {habit} {updateHabitStore}/>
+          <svelte:component this={getModule(component).componentType} props={getModule(component).props}/>
         </ModuleWrapper>
       {/if}
     {/each}

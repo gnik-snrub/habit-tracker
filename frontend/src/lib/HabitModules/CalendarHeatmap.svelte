@@ -4,9 +4,8 @@
   import Tooltip from 'cal-heatmap/plugins/Tooltip'
   import {afterUpdate} from 'svelte';
 
-  export let habit: Habit
-  export let updateHabitStore: () => Promise<void>
-  updateHabitStore = (): Promise<void> => { return }
+  export let props: {habit: Habit}
+  $: habit = props.habit
 
   $: instanceData = habit.instances.reduce((acc, curr) => {
     const currDate = curr.toString().slice(0, 10)
