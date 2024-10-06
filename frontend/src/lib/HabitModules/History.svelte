@@ -5,8 +5,9 @@
 </script>
 
 <div>
-  <h3>History: {habit.instances.length} attempts</h3>
+  <h3>History</h3>
   <ul>
+    <li><h4>{habit.instances.length} engagements</h4></li>
     {#each habit.instances.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()) as instance}
       <li>{new Date(instance).toLocaleString()}</li>
     {/each}
@@ -17,8 +18,11 @@
   div {
     width: 100%;
     margin: 1.5em 0;
+    padding: 1em 0;
     outline: 1px solid var(--accent-color);
     background-color: var(--dark-bg-shadow-color);
+    display: flex;
+    align-items: center;
   }
   ul {
     display: grid;
@@ -29,15 +33,18 @@
     overflow-x: auto;
     overflow-y: hidden;
     margin: 0;
-    padding-bottom: 1em;
+    padding: 0;
+    margin-right: 1em;
   }
   li {
-    padding: 0.1em 1em;
     list-style: none;
-    width: 100%;
-    margin: 0;
   }
   h3 {
-    padding-left: 2em;
+    rotate: -90deg;
+  }
+  h4 {
+    margin: 0;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
   }
 </style>
