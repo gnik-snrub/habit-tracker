@@ -44,15 +44,60 @@
 {:else}
   <div class="detailsArea">
     <h4>{selectedGoal.name}</h4>
-    <p>Created on: {selectedGoal.creationDate}</p>
-    {#if selectedGoal.startDate}
-      <p>Start date: {selectedGoal.startDate}</p>
-    {/if}
-    {#if selectedGoal.endDate}
-      <p>Start date: {selectedGoal.endDate}</p>
-    {/if}
+    <p>Created on: {new Date(selectedGoal.creationDate).toLocaleString()}</p>
     <form on:submit|preventDefault={() => {}}>
+      <section class="goalParam">
+        <h5>Start Date</h5>
+        <input type="date" id="start" value={formatDate(selectedGoal.startDate)} />
+        <div class="toggle">
+          <label for="startExists">Toggle: </label>
+          <input type="checkbox" id="startExists" />
+        </div>
+      </section>
 
+      <section class="goalParam">
+        <h5>End Date</h5>
+        <input type="date" id="end" value={formatDate(selectedGoal.endDate)} />
+        <div class="toggle">
+          <label for="startExists">Toggle: </label>
+          <input type="checkbox" id="endExists" />
+        </div>
+      </section>
+
+      <section class="goalParam">
+        <h5>Goal Target</h5>
+        <input type="number" id="target" placeholder="Target Total Amount">
+        <div class="toggle">
+          <label for="targetExists">Toggle: </label>
+          <input type="checkbox" id="targetExists" />
+        </div>
+      </section>
+  
+      <section class="goalParam">
+        <h5>Goal Frequency</h5>
+        <div class="options">
+          <select name="timeframe" id="timeframe">
+            <option value="" selected disabled>How Often</option>
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Yearly">Yearly</option>
+          </select>
+          <input type="number" id="amount" placeholder="Amount">
+        </div>
+        <div class="toggle">
+          <label for="frequencyExists">Toggle: </label>
+          <input type="checkbox" id="frequencyExists">
+        </div>
+      </section>
+
+      <section class="goalParam">
+        <h5>Goal Completed</h5>
+        <div class="toggle">
+          <label for="completed">Toggle: </label>
+          <input type="checkbox" id="completed">
+        </div>
+      </section>
     </form>
     <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{ func: () => {selectedGoal = null}}}>Change Goal</Button>
   </div>
