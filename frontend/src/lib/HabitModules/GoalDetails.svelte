@@ -107,7 +107,7 @@
   h3 {
     rotate: -90deg;
   }
-  select {
+  select, input {
     padding: 0.5em;
     border: 1px solid var(--accent-color);
     background-color: var(--dark-bg-shadow-color);
@@ -115,5 +115,28 @@
     &:focus {
       outline: none;
     }
+  }
+  form {
+    width: 100%;
+  }
+  .goalParam {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    justify-items: start;
+    margin: 0.5em 0;
+    & > h5 {
+      margin: 0;
+      justify-self: right;
+      margin-right: 1em;
+    }
+  }
+  .detailsArea {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 </style>
