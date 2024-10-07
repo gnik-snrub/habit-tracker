@@ -15,6 +15,19 @@
     }
     selectedGoal = goals[goalID]
   }
+
+  function formatDate(date: string): string {
+    let dateObj: Date
+    if (!date) {
+      dateObj = new Date()
+    } else {
+      dateObj = new Date(date)
+    }
+    const offset = dateObj.getTimezoneOffset()
+    const yourDate = new Date(dateObj.getTime() - (offset * 60 * 1000))
+    return yourDate.toISOString().split('T')[0]
+  }
+
 </script>
 
 <h3>Details</h3>
