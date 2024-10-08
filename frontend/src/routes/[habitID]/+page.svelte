@@ -9,9 +9,9 @@
   import Button from "$lib/Button.svelte";
   import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
   import CalendarHeatmap from "../../lib/HabitModules/CalendarHeatmap.svelte";
-  import GoalDetails from "../../lib/HabitModules/GoalDetails.svelte";
-    import Error from "../../lib/HabitModules/Error.svelte";
+  import GoalEditor from "../../lib/HabitModules/GoalEditor.svelte";
 
+  import Error from "../../lib/HabitModules/Error.svelte";
   export let data: { id: string }
 
   $: habit = $habits.get(data.id) ? $habits.get(data.id) : { name: 'Habit not found', instances: [] }
@@ -77,8 +77,8 @@
         return {componentType: History, props: {habit}}
       case 'CalendarHeatmap':
         return {componentType: CalendarHeatmap, props: {habit}}
-      case 'GoalDetails':
-        return {componentType: GoalDetails, props: {habit}}
+      case 'GoalEditor':
+        return {componentType: GoalEditor, props: {habit}}
       default:
         return {componentType: Error, props: {}}
     }
@@ -191,7 +191,7 @@
             <option value="" disabled selected>Select Module</option>
             <option value="Notes">Notes</option>
             <option value="History">History</option>
-            <option value="GoalDetails">Goal Details</option>
+            <option value="GoalEditor">Goal Editor</option>
             <option value="CalendarHeatmap">Calendar</option>
           </select>
           <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"

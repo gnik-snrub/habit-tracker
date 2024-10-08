@@ -29,7 +29,7 @@
   }
 </script>
 
-<h3>Details</h3>
+<h3>Editor</h3>
 {#if !selectedGoal}
   <form on:submit|preventDefault={setGoal}>
     <select name="goal" id="goalSelect">
