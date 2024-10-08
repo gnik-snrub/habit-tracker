@@ -118,27 +118,41 @@
       outline: none;
     }
   }
-  form {
-    width: 100%;
-  }
   .goalParam {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 30% auto auto;
     align-items: center;
-    justify-items: start;
-    margin: 0.5em 0;
+    justify-content: start;
+    border-left: 1px solid var(--accent-color);
+    margin-left: 2em;
     & > h5 {
       margin: 0;
       justify-self: right;
-      margin-right: 1em;
+      margin-right: 0.5em;
     }
+  }
+  .toggle {
+    margin-right: 1em;
   }
   .detailsArea {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 12em auto;
+    padding: 0;
     align-items: center;
+  }
+  #goal {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    grid-gap: 0.5em;
+    & > * {
+      margin: 0;
+      padding: 0;
+    }
+    & > h4 {
+      font-size: 1.2em;
+    }
   }
 </style>
