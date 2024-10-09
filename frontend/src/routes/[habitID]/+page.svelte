@@ -9,6 +9,7 @@
   import Button from "$lib/Button.svelte";
   import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
   import CalendarHeatmap from "../../lib/HabitModules/CalendarHeatmap.svelte";
+  import GoalShowcaseSelector from "../../lib/HabitModules/GoalShowcaseSelector.svelte";
   import GoalEditor from "../../lib/HabitModules/GoalEditor.svelte";
 
   import Error from "../../lib/HabitModules/Error.svelte";
@@ -69,16 +70,18 @@
     habits.set(temp)
   }
 
-  function getModule(module: string): any {
-    switch (module) {
-      case 'Notes':
+  function getModule(module: string, layoutIndex?: number): any {
+    switch (true) {
+      case module === 'Notes':
         return {componentType: Notes, props: { habit, updateHabitStore }}
-      case 'History':
+      case module === 'History':
         return {componentType: History, props: {habit}}
-      case 'CalendarHeatmap':
+      case module === 'CalendarHeatmap':
         return {componentType: CalendarHeatmap, props: {habit}}
-      case 'GoalEditor':
+      case module === 'GoalEditor':
         return {componentType: GoalEditor, props: {habit}}
+      case module === 'GoalShowcaseSelector':
+        return {componentType: GoalShowcaseSelector, props: {habit, updateHabit, layoutIndex}}
       default:
         return {componentType: Error, props: {}}
     }
@@ -193,6 +196,7 @@
             <option value="History">History</option>
             <option value="GoalEditor">Goal Editor</option>
             <option value="CalendarHeatmap">Calendar</option>
+            <option value="GoalShowcaseSelector">Goal Showcase</option>
           </select>
           <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
             data={{ func: () => {} }}>
@@ -206,7 +210,7 @@
     {#each habit.layout as component, i}
       {#if component}
         <ModuleWrapper {habit} index={i} {reorder} {deleteModule}>
-          <svelte:component this={getModule(component).componentType} props={getModule(component).props}/>
+          <svelte:component this={getModule(component).componentType} props={getModule(component, i).props}/>
         </ModuleWrapper>
       {/if}
     {/each}
