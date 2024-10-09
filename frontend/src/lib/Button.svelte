@@ -2,7 +2,7 @@
   export let data: {func?: () => void} | undefined = undefined
 </script>
 
-<button on:click={data.func ? data.func : () => {}}><slot/></button>
+<button on:click={data?.func ?? (() => {})}><slot/></button>
 
 <style>
   button {
