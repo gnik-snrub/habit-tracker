@@ -27,9 +27,6 @@
   li {
     list-style: none;
   }
-  h3 {
-    rotate: -90deg;
-  }
   h4 {
     margin: 0;
     text-decoration: underline;

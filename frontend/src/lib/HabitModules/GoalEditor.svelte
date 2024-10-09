@@ -106,9 +106,6 @@
 {/if}
 
 <style>
-  h3 {
-    rotate: -90deg;
-  }
   select, input {
     padding: 0.5em;
     border: 1px solid var(--accent-color);

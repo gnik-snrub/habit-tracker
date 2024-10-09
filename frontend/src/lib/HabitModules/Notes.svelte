@@ -74,7 +74,4 @@
   textarea:invalid {
     background-color: var(--dark-bg-color);
   }
-  h3 {
-    rotate: -90deg;
-  }
 </style>

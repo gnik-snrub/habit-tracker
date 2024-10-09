@@ -54,13 +54,17 @@
   .moduleContent {
     width: 100%;
     margin: 1.5em 0;
-    padding: 1em 0;
+    padding: 2em 0;
     outline: 1px solid var(--accent-color);
     background-color: var(--dark-bg-shadow-color);
-    display: flex;
+    display: grid;
+    grid-template-columns: 5em 1fr;
     align-items: center;
     justify-content: start;
     & > h3 {
+      text-align: center;
+      rotate: -90deg;
+      width: 100%;
       translate: -50% 0;
       margin-left: 2em;
     }
