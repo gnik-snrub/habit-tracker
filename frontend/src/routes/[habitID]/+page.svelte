@@ -10,6 +10,7 @@
   import ModuleWrapper from "../../lib/ModuleWrapper.svelte";
   import CalendarHeatmap from "../../lib/HabitModules/CalendarHeatmap.svelte";
   import GoalShowcaseSelector from "../../lib/HabitModules/GoalShowcaseSelector.svelte";
+  import GoalShowcase from "../../lib/HabitModules/GoalShowcase.svelte";
   import GoalEditor from "../../lib/HabitModules/GoalEditor.svelte";
 
   import Error from "../../lib/HabitModules/Error.svelte";
@@ -82,6 +83,8 @@
         return {componentType: GoalEditor, props: {habit}}
       case module === 'GoalShowcaseSelector':
         return {componentType: GoalShowcaseSelector, props: {habit, updateHabit, layoutIndex}}
+      case /^GoalShowcase/.test(module):
+        return {componentType: GoalShowcase, props: {habit, goal: module.split(' ')[1]}}
       default:
         return {componentType: Error, props: {}}
     }
