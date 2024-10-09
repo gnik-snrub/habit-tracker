@@ -5,5 +5,6 @@
 <style>
   h3 {
     margin-left: 3em;
+    translate: 0 !important;
   }
 </style>

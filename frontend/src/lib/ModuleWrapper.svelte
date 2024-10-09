@@ -59,5 +59,10 @@
     background-color: var(--dark-bg-shadow-color);
     display: flex;
     align-items: center;
+    justify-content: start;
+    & > h3 {
+      translate: -50% 0;
+      margin-left: 2em;
+    }
   }
 </style>
