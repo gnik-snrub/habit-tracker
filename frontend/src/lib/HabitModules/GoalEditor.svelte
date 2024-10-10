@@ -27,6 +27,9 @@
     const yourDate = new Date(dateObj.getTime() - (offset * 60 * 1000))
     return yourDate.toISOString().split('T')[0]
   }
+  
+  async function updateGoal(event: Event): void {
+  }
 </script>
 
 <h3>Editor</h3>
@@ -48,7 +51,7 @@
       <p>{new Date(selectedGoal.creationDate).toLocaleString()}</p>
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{ func: () => {selectedGoal = null}}}>Change Goal</Button>
     </section>
-    <form on:submit|preventDefault={() => {}}>
+    <form id="goalForm" on:submit|preventDefault={updateGoal}>
       <section class="goalParam">
         <h5>Start Date:</h5>
         <div class="toggle">
@@ -101,6 +104,7 @@
           <input type="checkbox" id="completed">
         </div>
       </section>
+      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-shadow-color)">Confirm</Button>
     </form>
   </div>
 {/if}
@@ -150,6 +154,16 @@
     }
     & > h4 {
       font-size: 1.2em;
+    }
+  }
+  #goalForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    & > * {
+      margin: 0;
+      padding: 0;
     }
   }
 </style>
