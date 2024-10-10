@@ -6,8 +6,10 @@
   export let deleteModule: (index: number) => void
 
   let toggleDelete: boolean = false
+  let isDeleting: boolean = false
 
   function handleDelete(): void {
+    isDeleting = true
     deleteModule(index)
     toggleDelete = false
   }
@@ -29,7 +31,12 @@
     {/if}
   </div>
   <div class="moduleContent">
-    <slot/>
+    {#if isDeleting}
+      <h3>Deleting</h3>
+      <p>Module is being removed...</p>
+    {:else}
+      <slot/>
+    {/if}
   </div>
 </section>
 
@@ -68,5 +75,9 @@
       translate: -50% 0;
       margin-left: 2em;
     }
+  }
+  p {
+    width: 100%;
+    text-align: center;
   }
 </style>
