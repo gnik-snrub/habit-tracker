@@ -29,6 +29,32 @@
   }
   
   async function updateGoal(event: Event): void {
+    const data = new URLSearchParams()
+    if (event.target[0].checked) {
+      data.append('startDate', event.target[1].value)
+    }
+    if (event.target[2].checked) {
+      data.append('endDate', event.target[3].value)
+    }
+    if (event.target[4].checked) {
+      data.append('goalTarget', event.target[5].value)
+    }
+    if (event.target[6].checked) {
+      data.append('timeframe', event.target[7].value)
+      data.append('amount', event.target[8].value)
+    }
+    if (event.target[9].checked) {
+      data.append('completed', true)
+    }
+    data.append('goalID', selectedGoal._id)
+
+    const addGoalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals`, {
+      method: 'PUT',
+      body: data
+    })
+
+    const { newGoalID } = await addGoalResponse.json()
+    console.log('Updated goal', newGoalID)
   }
 </script>
 
