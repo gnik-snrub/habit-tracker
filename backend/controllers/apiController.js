@@ -78,5 +78,28 @@ exports.deleteGoal = async(req, res) => {
 }
 
 exports.updateGoal = async(req, res) => {
-  
+  if (!req.body) {
+    return res.json({ error: 'Missing body' })
+  }
+  const goal = await Goal.findById(req.body.goalID)
+  const updatedGoal = new Goal({
+    _id: req.body.goalID,
+    name: goal.name,
+    habit: goal.habit,
+    user: goal.user,
+    creationDate: goal.creationDate,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    goalTarget: req.body.goalTarget,
+    goalFrequency: {
+      timeframe: req.body.timeframe,
+      amount: req.body.amount
+    }
+  })
+  if (req.body.completed) {
+    updatedGoal.goalCompleted = false
+  }
+  console.log(updatedGoal)
+  await Goal.findByIdAndUpdate(req.body.goalID, updatedGoal)
+  res.json({ updatedGoalID: req.body.goalID })
 }
