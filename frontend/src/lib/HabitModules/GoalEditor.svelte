@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { userData } from "../../stores/userData";
   import { goals as goalsData } from "../../stores/goals"
     import Button from "../Button.svelte";
 
@@ -55,6 +56,20 @@
 
     const { newGoalID } = await addGoalResponse.json()
     console.log('Updated goal', newGoalID)
+
+    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`)
+    const fetchedGoals = await goalRetriveResponse.json()
+
+    const tempGoals: Map<string, Goal[]> = new Map()
+    fetchedGoals.forEach((goal: Goal) => {
+      if (tempGoals.has(goal.habit)) {
+        tempGoals.get(goal.habit).push(goal)
+      } else {
+        tempGoals.set(goal.habit, [goal])
+      }
+    })
+    goalsData.set(tempGoals)
+    console.log('Refreshed goals')
   }
 </script>
 
