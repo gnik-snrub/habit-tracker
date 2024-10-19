@@ -69,7 +69,6 @@ exports.createGoal = async(req, res) => {
     creationDate: new Date(),
   })
   await newGoal.save()
-  console.log(newGoal)
   res.json({ newGoalID: newGoal._id})
 }
 
@@ -99,7 +98,6 @@ exports.updateGoal = async(req, res) => {
   if (req.body.completed) {
     updatedGoal.goalCompleted = false
   }
-  console.log(updatedGoal)
-  await Goal.findByIdAndUpdate(req.body.goalID, updatedGoal)
+  await Goal.replaceOne({ _id: req.body.goalID }, updatedGoal)
   res.json({ updatedGoalID: req.body.goalID })
 }
