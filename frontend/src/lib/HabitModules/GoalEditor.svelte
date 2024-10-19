@@ -97,7 +97,7 @@
         <h5>Start Date:</h5>
         <div class="toggle">
           <label for="startExists"></label>
-          <input type="checkbox" id="startExists" />
+          <input type="checkbox" id="startExists" checked={selectedGoal.startDate} />
         </div>
         <input type="date" id="start" value={formatDate(selectedGoal.startDate)} />
       </section>
@@ -106,7 +106,7 @@
         <h5>End Date:</h5>
         <div class="toggle">
           <label for="startExists"></label>
-          <input type="checkbox" id="endExists" />
+          <input type="checkbox" id="endExists" checked={selectedGoal.endDate} />
         </div>
         <input type="date" id="end" value={formatDate(selectedGoal.endDate)} />
       </section>
@@ -115,26 +115,26 @@
         <h5>Goal uses overall target:</h5>
         <div class="toggle">
           <label for="targetExists"></label>
-          <input type="checkbox" id="targetExists" />
+          <input type="checkbox" id="targetExists" checked={selectedGoal.goalTarget} />
         </div>
-        <input type="number" id="target" placeholder="Target Total Amount">
+        <input type="number" id="target" placeholder="Target Total Amount" value={selectedGoal.goalTarget}>
       </section>
   
       <section class="goalParam">
         <h5>Goal uses a frequency:</h5>
         <div class="toggle">
           <label for="frequencyExists"></label>
-          <input type="checkbox" id="frequencyExists">
+          <input type="checkbox" id="frequencyExists" checked={selectedGoal.hasOwnProperty('goalFrequency')}/>
         </div>
         <div class="options">
-          <select name="timeframe" id="timeframe">
+          <select name="timeframe" id="timeframe" value={selectedGoal?.goalFrequency?.timeframe || ''}>
             <option value="" selected disabled>How Often</option>
             <option value="Daily">Daily</option>
             <option value="Weekly">Weekly</option>
             <option value="Monthly">Monthly</option>
             <option value="Yearly">Yearly</option>
           </select>
-          <input type="number" id="amount" placeholder="Amount per">
+          <input type="number" id="amount" placeholder="Amount per" value={selectedGoal?.goalFrequency?.amount || null}>
         </div>
       </section>
 
@@ -142,7 +142,7 @@
         <h5>Goal can be completed:</h5>
         <div class="toggle">
           <label for="completed"></label>
-          <input type="checkbox" id="completed">
+          <input type="checkbox" id="completed" checked={Object.hasOwn(selectedGoal, 'goalCompleted')}>
         </div>
       </section>
       <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-shadow-color)">Confirm</Button>
