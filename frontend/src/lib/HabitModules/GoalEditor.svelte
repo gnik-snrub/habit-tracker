@@ -54,8 +54,8 @@
       body: data
     })
 
-    const { newGoalID } = await addGoalResponse.json()
-    console.log('Updated goal', newGoalID)
+    const { updatedGoalID } = await addGoalResponse.json()
+    console.log('Updated goal', updatedGoalID)
 
     const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`)
     const fetchedGoals = await goalRetriveResponse.json()
