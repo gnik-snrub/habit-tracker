@@ -7,14 +7,15 @@
   $: habit = props.habit
 
   $: goals = $goalsData.get(habit._id)
-  let selectedGoal: Goal = null
+  $: selectedGoal = null
+  let selectedGoalId: number = null
 
   function setGoal(event: Event): void {
-    const goalID = event.target[0].value
-    if (!goalID) {
+    const selectedGoalId = event.target[0].value
+    if (!selectedGoalId) {
       return
     }
-    selectedGoal = goals[goalID]
+    selectedGoal = goals[selectedGoalId]
   }
 
   function formatDate(date: string): string {
@@ -74,6 +75,7 @@
     goalsData.set(tempGoals)
     console.log('Refreshed goals')
 
+    selectedGoal = goals[selectedGoalId]
     isSaving = false
   }
 </script>
