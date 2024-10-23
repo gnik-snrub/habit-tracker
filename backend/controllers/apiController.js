@@ -90,11 +90,13 @@ exports.updateGoal = async(req, res) => {
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     goalTarget: req.body.goalTarget,
-    goalFrequency: {
+  })
+  if (req.body.timeframe && req.body.amount) {
+    updatedGoal.goalFrequency = {
       timeframe: req.body.timeframe,
       amount: req.body.amount
     }
-  })
+  }
   if (req.body.completed) {
     updatedGoal.goalCompleted = false
   }
