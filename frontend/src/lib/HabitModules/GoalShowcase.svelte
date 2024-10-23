@@ -30,7 +30,7 @@
       <p>{goal.goalTarget}</p>
     </div>
   {/if}
-  {#if goal.goalFrequency}
+  {#if goal.goalFrequency?.amount && goal.goalFrequency?.timeframe}
     <div id="frequency">
       <p>Goal Frequency:</p>
       <p>{goal.goalFrequency.amount} {goal.goalFrequency.timeframe}</p>
@@ -39,7 +39,7 @@
   {#if Object.hasOwn(goal, 'goalCompleted')}
     <div id="completed">
       <p>Goal Completed:</p>
-      <p>{goal.goalCompleted}</p>
+      <p>{goal.goalCompleted ? "Complete!" : "In Progress"}</p>
     </div>
   {/if}
 </section>
@@ -49,16 +49,19 @@
     display: flex;
     flex-direction: row;
     justify-content: safe center;
-    gap: 1em;
+    flex-wrap: wrap;
     width: 100%;
     margin: 1em 0;
-    overflow-x: auto;
+    gap: 1em 2em;
   }
   div {
+    flex: 0 0 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
     white-space: nowrap;
+    background-color: hsl(from var(--dark-bg-shadow-color) h s calc(l*1.05) );
+    border-radius: 15px;
   }
   p {
     margin: 0 1em;
