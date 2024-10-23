@@ -207,6 +207,23 @@
           </Button>
         </form>
       {/if}
+      <div id="deleteButtonArea">
+        {#if !confirmDelete}
+          <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+            data={{ func: () => {confirmDelete = true} }}>
+            Delete Habit
+          </Button>
+        {:else}
+          <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+            data={{ func: () => {confirmDelete = false} }}>
+            Cancel
+          </Button>
+          <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
+            data={{ func: () => {deleteHabit()} }}>
+            Confirm deletion
+          </Button>
+        {/if}
+      </div>
     </div>
   </div>
   <div id="modules">
@@ -217,23 +234,6 @@
         </ModuleWrapper>
       {/if}
     {/each}
-  </div>
-  <div id="deleteButtonArea">
-    {#if !confirmDelete}
-      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ func: () => {confirmDelete = true} }}>
-        Delete Habit
-      </Button>
-    {:else}
-      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ func: () => {confirmDelete = false} }}>
-        Cancel
-      </Button>
-      <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
-        data={{ func: () => {deleteHabit()} }}>
-        Confirm deletion
-      </Button>
-    {/if}
   </div>
 </section>
 
@@ -274,12 +274,6 @@
     display: flex;
     align-items: center;
     height: 2em;
-  }
-  #deleteButtonArea {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin: 2em 0;
   }
   h1 {
     margin: 1em;
