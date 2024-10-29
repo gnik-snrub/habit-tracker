@@ -14,6 +14,7 @@
   import GoalEditor from "../../lib/HabitModules/GoalEditor.svelte";
 
   import Error from "../../lib/HabitModules/Error.svelte";
+    import DailyConsistency from "../../lib/HabitModules/DailyConsistency.svelte";
   export let data: { id: string }
 
   $: habit = $habits.get(data.id) ? $habits.get(data.id) : { name: 'Habit not found', instances: [] }
@@ -85,6 +86,8 @@
         return {componentType: GoalShowcaseSelector, props: {habit, updateHabit, layoutIndex}}
       case /^GoalShowcase/.test(module):
         return {componentType: GoalShowcase, props: {habit, goal: module.split(' ')[1]}}
+      case module === 'DailyConsistency':
+        return { componentType: DailyConsistency, props: { habit } }
       default:
         return {componentType: Error, props: {}}
     }
@@ -200,6 +203,7 @@
             <option value="GoalEditor">Goal Editor</option>
             <option value="CalendarHeatmap">Calendar</option>
             <option value="GoalShowcaseSelector">Goal Showcase</option>
+            <option value="DailyConsistency">Consistency Tracker</option>
           </select>
           <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-color)"
             data={{ func: () => {} }}>
