@@ -25,17 +25,25 @@
   function createChart() {
     new Chart('consistencyChart',
       {
-        type: 'pie',
+        type: 'doughnut',
         data: {
-          labels: ['Engaged', 'Missed'],
+          labels: ['Checked In', 'Missed'],
           datasets: [{
             data: [calculateConsistency(habit.instances), 100 - calculateConsistency(habit.instances)],
-            backgroundColor: ['rgb(39, 154, 241)', 'rgb(59, 62, 69)'],
-            hoverOffset: 4
           }]
         },
         options: {
           responsive: true,
+          borderColor: 'rgb(252, 239, 249)',
+          backgroundColor: ['rgb(39, 154, 241)', 'rgb(69, 72, 81)'],
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                color: 'rgb(252, 239, 249)'
+              }
+            }
+          }
         }
       })
   }
@@ -64,7 +72,7 @@
     gap: 1em;
   }
   #consistencyChart {
-    height: 350px !important;
-    width: 350px !important;
+    height: 25% !important;
+    width: 25% !important;
   }
 </style>
