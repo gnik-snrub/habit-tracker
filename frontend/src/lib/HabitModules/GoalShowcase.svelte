@@ -1,9 +1,25 @@
 <script lang="ts">
+  import {afterUpdate} from "svelte";
   import { goals as goalsData } from "../../stores/goals"
   export let props: {habit: Habit, goal: string}
   $: habit = props.habit
   $: goal = $goalsData.get(habit._id).find((goal) => goal._id === props.goal)
+  $: checkInsInRange = findCheckInsInRange(habit)
 
+  function findCheckInsInRange(habit: Habit): number {
+    let checkIns = 0
+    for (let i = 0; i < habit.instances.length; i++) {
+      if (new Date(habit.instances[i]).getTime() >= new Date(goal.startDate).getTime()
+          && new Date(habit.instances[i]).getTime() <= new Date(goal.endDate).getTime()) {
+        checkIns++
+      }
+    }
+    return checkIns
+  }
+
+  afterUpdate(() => {
+    checkInsInRange = findCheckInsInRange(habit)
+  })
 </script>
 
 <h3>{goal.name}</h3>
@@ -15,19 +31,19 @@
   {#if goal.startDate}
     <div id="start">
       <p>Start Date:</p>
-      <p>{new Date(goal.startDate).toLocaleString()}</p>
+      <p>{new Date(goal.startDate).toLocaleDateString()}</p>
     </div>
   {/if}
   {#if goal.endDate}
     <div id="start">
       <p>End Date:</p>
-      <p>{new Date(goal.endDate).toLocaleString()}</p>
+      <p>{new Date(goal.endDate).toLocaleDateString()}</p>
     </div>
   {/if}
   {#if goal.goalTarget}
     <div id="target">
       <p>Goal Target:</p>
-      <p>{goal.goalTarget}</p>
+      <p>{checkInsInRange} / {goal.goalTarget}</p>
     </div>
   {/if}
   {#if goal.goalFrequency?.amount && goal.goalFrequency?.timeframe}
