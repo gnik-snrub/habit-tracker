@@ -12,8 +12,9 @@
 
   function findCheckInsInRange(habit: Habit): number {
     let checkIns = 0
+    let start = goal.startDate ? new Date(goal.startDate) : new Date(goal.creationDate)
     for (let i = 0; i < habit.instances.length; i++) {
-      if (new Date(habit.instances[i]).getTime() >= new Date(goal.startDate).getTime()
+      if (new Date(habit.instances[i]).getTime() >= start.getTime()
           && new Date(habit.instances[i]).getTime() <= new Date(goal.endDate).getTime()) {
         checkIns++
       }
@@ -107,7 +108,7 @@
       <p>{goal.goalCompleted ? "Complete!" : "In Progress"}</p>
     </div>
   {/if}
-  {#if checkInsInRange === goal.goalTarget && !goal.goalCompleted}
+  {#if checkInsInRange >= goal.goalTarget && !goal.goalCompleted}
     <div id="completeGoal">
       {#if !confirmCompleteToggle}
         <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-shadow-color)" data={{ func: () => {confirmCompleteToggle = true}}}>Complete Goal</Button>
