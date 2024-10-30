@@ -55,8 +55,9 @@
 </script>
 
 <h3>Days hit</h3>
-<div id="stuff">
+<div id="consistencyArea">
   {#if habit.instances.length > 0}
+    <p>You have checked in with this habit on {calculateConsistency(habit.instances)}% of the days since starting</p>
     <canvas id="consistencyChart" />
   {:else}
     <p>No engagements</p>
@@ -64,12 +65,15 @@
 </div>
 
 <style>
-  #stuff {
+  #consistencyArea {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 1em;
+    & > p {
+      width: 16em;
+    }
   }
   #consistencyChart {
     height: 25% !important;
