@@ -80,6 +80,7 @@ exports.updateGoal = async(req, res) => {
   if (!req.body) {
     return res.json({ error: 'Missing body' })
   }
+  console.log(req.body)
   const goal = await Goal.findById(req.body.goalID)
   const updatedGoal = new Goal({
     _id: req.body.goalID,
@@ -98,7 +99,14 @@ exports.updateGoal = async(req, res) => {
     }
   }
   if (req.body.completed) {
-    updatedGoal.goalCompleted = false
+    console.log('Completed Check', req.body.completed)
+    if (req.body.goalCompleted) {
+      console.log('Goal Completed')
+      updatedGoal.goalCompleted = true
+    } else {
+      console.log('Goal Not Completed')
+      updatedGoal.goalCompleted = false
+    }
   }
   await Goal.replaceOne({ _id: req.body.goalID }, updatedGoal)
   res.json({ updatedGoalID: req.body.goalID })
