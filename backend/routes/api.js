@@ -12,4 +12,7 @@ router.post('/goals', apiController.createGoal)
 router.delete('/goals', apiController.deleteGoal)
 router.put('/goals', apiController.updateGoal)
 
+router.post('/register', apiController.register)
+router.post('/login', apiController.login)
+
 module.exports = router
