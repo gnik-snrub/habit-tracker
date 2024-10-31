@@ -1,11 +1,20 @@
 <script lang="ts">
+  import { goto } from '$app/navigation'
+  import { browser } from '$app/environment'
+
   import Sidebar from '$lib/Sidebar.svelte'
   import Button from '$lib/Button.svelte'
 
-  import {onMount} from 'svelte';
+  import { onMount } from 'svelte';
   import { userData } from '../stores/userData'
   import { habits } from '../stores/habits'
   import { goals } from '../stores/goals'
+
+  $: {
+    if (browser && !$userData) {
+      goto('/login')
+    }
+  }
 
   onMount(async() => {
     const habitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
@@ -41,7 +50,7 @@
 <svelte:head><title>Habit Tracker</title></svelte:head>
 <header>
   <a href="/"><h1>Habit Tracker</h1></a>
-  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)">Log in</Button>
+  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)"><a href="/login">Log in</a></Button>
   <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)">Dark Mode</Button>
 </header>
 <main style:grid-template-columns={showSidebar ? '20% 80%' : '0 100%'}>
