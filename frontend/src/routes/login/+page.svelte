@@ -38,3 +38,39 @@
     {/each}
   </ul>
 </main>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em 0;
+    background-color: var(--dark-bg-shadow-color);
+    padding: 3em 6em 4em 6em;
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px 5px var(--accent-color);
+    outline: var(--accent-color) solid 7px;
+    outline-offset: -50px;
+  }
+  input {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid var(--accent-color);
+    background-color: var(--dark-bg-shadow-color);
+    color: var(--dark-text-color);
+    transition: 300ms;
+    outline: var(--accent-color) solid 0px;
+    &:focus {
+      outline: var(--accent-color) solid 1px;
+      outline-offset: 2px;
+      background-color: var(--dark-bg-color);
+    }
+  }
+</style>
