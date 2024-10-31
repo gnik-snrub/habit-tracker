@@ -16,6 +16,24 @@
   let errors = []
 
   async function register(): Promise<void> {
+    const data = new URLSearchParams()
+    data.append('username', usernameInput)
+    data.append('password', passwordInput)
+
+    const registerResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/register`, {
+      method: 'POST',
+      body: data
+    })
+
+    const { registeredUsername, foundErrors } = await registerResponse.json()
+
+    if (foundErrors) {
+      errors = [...foundErrors]
+    } else {
+      console.log('Registered user: ', registeredUsername)
+      usernameInput = ''
+      passwordInput = ''
+    }
   }
 
   async function login(): Promise<void> {
