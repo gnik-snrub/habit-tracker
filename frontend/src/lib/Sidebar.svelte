@@ -54,6 +54,9 @@
     <button type="submit">Add</button>
   </form>
   <ul>
+    {#if Array.from($habits.values()).length === 0}
+      <li id="empty">Empty list</li>
+    {/if}
     {#each Array.from($habits.values()) as habit}
       <li class="habit">
         <a href="/{habit._id}"><h3>{habit.name}</h3></a>
@@ -161,5 +164,13 @@
       margin: 0;
       transition: 1s;
     }
+  }
+  #empty {
+    font-size: 1.5em;
+    padding: 0;
+    margin: 0 50%;
+    translate: 30% 0;
+    height: 100%;
+    overflow: hidden;
   }
 </style>
