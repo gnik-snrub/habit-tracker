@@ -146,3 +146,19 @@ exports.register = async(req, res) => {
   res.json({ id: newUser._id, foundErrors: errors })
 }
 
+exports.login = async(req, res) => {
+  if (!req.body) {
+    return (res.json({ error: 'Missing body' }))    
+  }  
+  const username = req.body.username
+  const password = req.body.password
+  const user = await User.findOne({ username: username })
+  if (!user) {
+    return res.json({ foundErrors: 'User not found, or incorrect password' })
+  }
+  if (!await bcrypt.compare(password, user.password)) {
+    return res.json({ foundErrors: 'User not found, or incorrect password' })
+  }
+  const token = jwt.sign({ username: user.username, userID: user._id }, process.env.JWT_SECRET)
+  res.json({ token: token, user: user,  foundErrors: '' })
+}
