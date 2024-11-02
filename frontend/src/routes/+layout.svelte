@@ -4,31 +4,45 @@
 
   import Sidebar from '$lib/Sidebar.svelte'
   import Button from '$lib/Button.svelte'
+  import Login from '../routes/login/+page.svelte'
 
   import { userData } from '../stores/userData'
-
-  $: {
-    if (browser && !$userData) {
-      goto('/login')
-    }
-  }
+  import { token } from '../stores/token'
+  import { habits } from '../stores/habits'
+  import { goals } from '../stores/goals'
 
   let showSidebar = true
   function toggleSidebar(): void {
     showSidebar = !showSidebar
+  }
+  
+  function logout(): void {
+    goto('/login')
+    $userData = null
+    $habits = new Map()
+    $goals = new Map()
+    $token = ''
   }
 </script>
 
 <svelte:head><title>Habit Tracker</title></svelte:head>
 <header>
   <a href="/"><h1>Habit Tracker</h1></a>
-  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)"><a href="/login">Log in</a></Button>
+  {#if $userData}
+    <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)" data={{ func: () => {logout()} }}>Log out</Button>
+  {:else}
+    <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)"><a href="/login">Log in</a></Button>
+  {/if}
   <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)">Dark Mode</Button>
 </header>
-<main style:grid-template-columns={showSidebar ? '20% 80%' : '0 100%'}>
-  <Sidebar toggleFunc={() => {toggleSidebar()}}/>
-  <slot/>
-</main>
+{#if !$userData}
+  <Login/>
+{:else}
+  <main style:grid-template-columns={showSidebar ? '20% 80%' : '0 100%'}>
+    <Sidebar toggleFunc={() => {toggleSidebar()}}/>
+    <slot/>
+  </main>
+{/if}
 
 <style>
   :global(:root) {
