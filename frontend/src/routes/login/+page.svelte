@@ -1,5 +1,11 @@
 <script lang="ts">
-    import Button from "../../lib/Button.svelte";
+  import { userData } from "../../stores/userData";
+  import { token } from "../../stores/token";
+  import {goals} from "../../stores/goals";
+  import {habits} from "../../stores/habits";
+
+  import { goto } from "$app/navigation"
+  import Button from "../../lib/Button.svelte";
 
   let registerToggle: boolean = false
   let usernameInput: string
@@ -34,6 +40,7 @@
       usernameInput = ''
       passwordInput = ''
     }
+    goto('/')
   }
 
   async function login(): Promise<void> {
@@ -58,8 +65,44 @@
 
     $userData = user._id
     $token = token
+    await fetchData()
     goto('/')
   }
+
+  async function fetchData(): Promise<void> {
+    const habitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+    })
+    const fetchedHabits = await habitResponse.json()
+
+    const temp: Map<string, Habit> = $habits
+    fetchedHabits.forEach((habit) => {
+      temp.set(habit._id, habit)
+    })
+    habits.set(temp)
+
+    const goalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+    })
+    const fetchedGoals = await goalResponse.json()
+
+    const tempGoals: Map<string, Goal[]> = new Map()
+    fetchedGoals.forEach((goal) => {
+      if (tempGoals.has(goal.habit)) {
+        tempGoals.get(goal.habit).push(goal)
+      } else {
+        tempGoals.set(goal.habit, [goal])
+      }
+    })
+    goals.set(tempGoals)
+  }
+
 </script>
 
 <main>
@@ -69,6 +112,7 @@
     <input type="password" placeholder="Password" bind:value={passwordInput}/>
     <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-shadow-color)">{registerToggle ? "Register" : "Login"}</Button>
   </form>
+  <p>{registerToggle ? "Already have an account?" : "Don't have an account?"}</p>
   <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--dark-bg-shadow-color)"
     data={{ func: () => {registerToggle = !registerToggle}}}>{registerToggle ? "Login" : "Register"}</Button>
   <ul>
@@ -94,9 +138,8 @@
     background-color: var(--dark-bg-shadow-color);
     padding: 3em 6em 4em 6em;
     border-radius: 15px;
-    box-shadow: inset 0 0 10px 5px var(--accent-color);
     outline: var(--accent-color) solid 7px;
-    outline-offset: -50px;
+    outline-offset: -20px;
   }
   input {
     padding: 0.5em;
