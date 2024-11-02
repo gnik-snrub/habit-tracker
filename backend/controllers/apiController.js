@@ -1,3 +1,6 @@
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
 const Habit = require('../models/Habit')
 const User = require('../models/User')
 const Goal = require('../models/Goal')
@@ -30,7 +33,7 @@ exports.deleteHabit = async(req, res) => {
   if (!req.body) {
     return res.json({ error: 'Missing body' })
   }
-  const habit = await Habit.findByIdAndDelete(req.body.habitID)
+  await Habit.findByIdAndDelete(req.body.habitID)
   res.json({ deletedHabitID: req.body.habitID })
 }
 
@@ -80,7 +83,6 @@ exports.updateGoal = async(req, res) => {
   if (!req.body) {
     return res.json({ error: 'Missing body' })
   }
-  console.log(req.body)
   const goal = await Goal.findById(req.body.goalID)
   const updatedGoal = new Goal({
     _id: req.body.goalID,
@@ -99,15 +101,48 @@ exports.updateGoal = async(req, res) => {
     }
   }
   if (req.body.completed) {
-    console.log('Completed Check', req.body.completed)
     if (req.body.goalCompleted) {
-      console.log('Goal Completed')
       updatedGoal.goalCompleted = true
     } else {
-      console.log('Goal Not Completed')
       updatedGoal.goalCompleted = false
     }
   }
   await Goal.replaceOne({ _id: req.body.goalID }, updatedGoal)
   res.json({ updatedGoalID: req.body.goalID })
 }
+
+exports.register = async(req, res) => {
+  if (!req.body) {
+    return (res.json({ error: 'Missing body' }))    
+  }  
+  const errors = []
+
+  const username = req.body.username
+  const password = req.body.password
+
+  if (!username || !password) {
+    errors.push('Missing username or password')
+  }
+  if (password.length < 6) {
+    errors.push('Password must be at least 6 characters')
+  }
+  if (password.search(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/) < 0) {
+    errors.push('Password must contain at least one uppercase letter, one lowercase letter, and one number')
+  }
+  const user = await User.findOne({ username: req.body.username })
+  if (user) {
+    errors.push('Username already in use')
+  }
+  if (errors.length) {
+    return res.json({ foundErrors: errors })
+  }
+  const hashedPassword = await bcrypt.hash(password, 10)
+  const newUser = new User({
+    username: username,
+    password: hashedPassword,
+  })
+  await newUser.save()
+  console.log('Registered new user: ', newUser._id)
+  res.json({ id: newUser._id, foundErrors: errors })
+}
+
