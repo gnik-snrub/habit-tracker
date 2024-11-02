@@ -37,7 +37,28 @@
   }
 
   async function login(): Promise<void> {
-    
+    const data = new URLSearchParams()
+    data.append('username', usernameInput)
+    data.append('password', passwordInput)
+
+    const loginResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/login`, {
+      method: 'POST',
+      body: data
+    })
+
+    const { token, user, foundErrors } = await loginResponse.json()
+
+    if (foundErrors) {
+      errors = [foundErrors]
+    } else {
+      console.log('Logged in user: ', user.username)
+      usernameInput = ''
+      passwordInput = ''
+    }
+
+    $userData = user._id
+    $token = token
+    goto('/')
   }
 </script>
 
