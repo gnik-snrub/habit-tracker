@@ -59,7 +59,7 @@
     const { completedGoalId } = await completeGoalResponse.json()
     console.log('Completed goal', completedGoalId)
 
-    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`, {
+    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData._id}`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + $token

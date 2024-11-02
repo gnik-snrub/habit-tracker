@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   import { habits } from '../stores/habits'
   import { userData } from '../stores/userData'
   import { token } from '../stores/token';
@@ -11,7 +9,7 @@
 
     const data = new URLSearchParams()
     data.append('name', name)
-    data.append('user', $userData)
+    data.append('user', $userData._id)
 
     const addHabitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
       method: 'POST',
@@ -24,7 +22,7 @@
     const { newHabitID } = await addHabitResponse.json()
     console.log('Added new habit: ', newHabitID)
 
-    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`, {
+    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData._id}`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + $token

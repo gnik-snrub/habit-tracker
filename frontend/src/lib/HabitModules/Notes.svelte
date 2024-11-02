@@ -20,7 +20,7 @@
 
     const body = new URLSearchParams()
     body.append('habitID', updatedHabit._id)
-    body.append('user', $userData)
+    body.append('user', $userData._id)
     body.append('name', updatedHabit.name)
     body.append('instances', updatedHabit.instances.toString())
     body.append('notes', updatedHabit.notes)

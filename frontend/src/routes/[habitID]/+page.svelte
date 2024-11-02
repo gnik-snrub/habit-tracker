@@ -42,7 +42,7 @@
   async function updateHabit(updatedHabit: Habit): Promise<void> {
     const data = new URLSearchParams()
     data.append('habitID', updatedHabit._id)
-    data.append('user', $userData)
+    data.append('user', $userData._id)
     data.append('name', updatedHabit.name)
     data.append('instances', updatedHabit.instances.toString())
     data.append('notes', updatedHabit.notes)
@@ -69,7 +69,7 @@
   }
 
   async function updateHabitStore(): Promise<void> {
-    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`, {
+    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData._id}`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + $token
@@ -116,7 +116,7 @@
 
     const data = new URLSearchParams()
     data.append('name', name)
-    data.append('user', $userData)
+    data.append('user', $userData._id)
     data.append('habitID', habit._id)
 
     const addGoalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals`, {
@@ -134,7 +134,7 @@
     event.target[0].placeholder = 'New Goal'
     goalToggle = false
 
-    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`, {
+    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData._id}`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + $token

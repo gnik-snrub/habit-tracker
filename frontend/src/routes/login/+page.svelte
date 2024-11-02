@@ -63,14 +63,14 @@
       passwordInput = ''
     }
 
-    $userData = user._id
+    $userData = user
     $token = token
     await fetchData()
     goto('/')
   }
 
   async function fetchData(): Promise<void> {
-    const habitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`, {
+    const habitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData._id}`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + $token
@@ -84,7 +84,7 @@
     })
     habits.set(temp)
 
-    const goalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`, {
+    const goalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData._id}`, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + $token
@@ -127,7 +127,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: 80%;
     width: 100%;
   }
   form {

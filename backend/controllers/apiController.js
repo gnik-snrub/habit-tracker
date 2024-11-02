@@ -160,5 +160,5 @@ exports.login = async(req, res) => {
     return res.json({ foundErrors: 'User not found, or incorrect password' })
   }
   const token = jwt.sign({ username: user.username, userID: user._id }, process.env.JWT_SECRET)
-  res.json({ token: token, user: user,  foundErrors: '' })
+  res.json({ token: token, user: { username: user.username, _id: user._id},  foundErrors: '' })
 }
