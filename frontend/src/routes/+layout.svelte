@@ -5,41 +5,13 @@
   import Sidebar from '$lib/Sidebar.svelte'
   import Button from '$lib/Button.svelte'
 
-  import { onMount } from 'svelte';
   import { userData } from '../stores/userData'
-  import { habits } from '../stores/habits'
-  import { goals } from '../stores/goals'
 
   $: {
     if (browser && !$userData) {
       goto('/login')
     }
   }
-
-  onMount(async() => {
-    const habitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
-    const fetchedHabits = await habitResponse.json()
-
-    const temp: Map<string, Habit> = $habits
-    fetchedHabits.forEach((habit) => {
-      temp.set(habit._id, habit)
-    })
-    habits.set(temp)
-
-    const goalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`)
-    const fetchedGoals = await goalResponse.json()
-
-    const tempGoals: Map<string, Goal[]> = new Map()
-    fetchedGoals.forEach((goal) => {
-      if (tempGoals.has(goal.habit)) {
-        tempGoals.get(goal.habit).push(goal)
-      } else {
-        tempGoals.set(goal.habit, [goal])
-      }
-    })
-    goals.set(tempGoals)
-  })
-
 
   let showSidebar = true
   function toggleSidebar(): void {
