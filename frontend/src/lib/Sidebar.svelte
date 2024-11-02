@@ -3,6 +3,7 @@
 
   import { habits } from '../stores/habits'
   import { userData } from '../stores/userData'
+  import { token } from '../stores/token';
 
   async function addNewHabit(event: Event): Promise<void> {
     const name = event.target[0].value
@@ -14,13 +15,21 @@
 
     const addHabitResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
       method: 'POST',
-      body: data
+      body: data,
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
     })
 
     const { newHabitID } = await addHabitResponse.json()
     console.log('Added new habit: ', newHabitID)
 
-    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
+    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+    })
     const updatedHabits = await habitRetrieveResponse.json()
 
     const tempHabits: Map<string, Habit> = $habits

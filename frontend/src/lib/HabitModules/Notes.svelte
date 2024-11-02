@@ -1,5 +1,6 @@
 <script lang="ts">
   import { userData } from "../../stores/userData";
+  import { token } from "../../stores/token";
   import { habits } from "../../stores/habits";
 
   import Button from "$lib/Button.svelte";
@@ -27,7 +28,10 @@
 
     const updateResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
       method: 'PUT',
-      body
+      body, 
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
     })
 
     const { updatedHabitID } = await updateResponse.json()

@@ -2,6 +2,7 @@
   import { habits } from "../../stores/habits"
   import { userData } from "../../stores/userData";
   import { goals } from "../../stores/goals";
+  import { token } from "../../stores/token"
   import { goto } from "$app/navigation"
 
   import Notes from "$lib/HabitModules/Notes.svelte"
@@ -25,7 +26,10 @@
 
     const response = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
       method: 'DELETE',
-      body
+      body,
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
     })
 
     const { deletedHabitID } = await response.json()
@@ -46,7 +50,10 @@
 
     const updateResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits`, {
       method: 'PUT',
-      body: data
+      body: data,
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
     })
 
     const { updatedHabitID } = await updateResponse.json()
@@ -62,7 +69,12 @@
   }
 
   async function updateHabitStore(): Promise<void> {
-    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`)
+    const habitRetrieveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/habits/${$userData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+    })
     const updatedHabits = await habitRetrieveResponse.json()
 
     const temp: Map<string, Habit> = new Map()
@@ -109,7 +121,11 @@
 
     const addGoalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals`, {
       method: 'POST',
-      body: data
+      body: data,
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+
     })
 
     const { newGoalID } = await addGoalResponse.json()
@@ -118,7 +134,12 @@
     event.target[0].placeholder = 'New Goal'
     goalToggle = false
 
-    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`)
+    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+    })
     const fetchedGoals = await goalRetriveResponse.json()
 
     const tempGoals: Map<string, Goal[]> = new Map()

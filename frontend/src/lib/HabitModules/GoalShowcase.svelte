@@ -2,6 +2,7 @@
   import {afterUpdate} from "svelte";
   import { goals as goalsData } from "../../stores/goals"
   import {userData} from "../../stores/userData";
+  import { token } from "../../stores/token";
   import Button from "../Button.svelte";
 
   export let props: {habit: Habit, goal: string}
@@ -49,12 +50,21 @@
     data.append('goalCompleted', true)
     const completeGoalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals`, {
       method: 'PUT',
-      body: data
+      body: data,
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+
     })
     const { completedGoalId } = await completeGoalResponse.json()
     console.log('Completed goal', completedGoalId)
 
-    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`)
+    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+    })
     const fetchedGoals = await goalRetriveResponse.json()
 
     const tempGoals: Map<string, Goal[]> = new Map()

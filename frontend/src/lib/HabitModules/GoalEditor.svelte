@@ -1,5 +1,6 @@
 <script lang="ts">
   import { userData } from "../../stores/userData";
+  import { token } from "../../stores/token";
   import { goals as goalsData } from "../../stores/goals"
     import Button from "../Button.svelte";
 
@@ -55,13 +56,22 @@
 
     const addGoalResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals`, {
       method: 'PUT',
-      body: data
+      body: data,
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+
     })
 
     const { updatedGoalID } = await addGoalResponse.json()
     console.log('Updated goal', updatedGoalID)
 
-    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`)
+    const goalRetriveResponse = await fetch(`${import.meta.env.VITE_API_DOMAIN}/goals/${$userData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + $token
+      }
+    })
     const fetchedGoals = await goalRetriveResponse.json()
 
     const tempGoals: Map<string, Goal[]> = new Map()
