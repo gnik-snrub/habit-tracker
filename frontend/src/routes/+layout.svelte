@@ -33,7 +33,6 @@
   {:else}
     <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)"><a href="/login">Log in</a></Button>
   {/if}
-  <Button --colorOne="var(--dark-text-color)" --colorTwo="var(--accent-color)">Dark Mode</Button>
 </header>
 {#if !$userData}
   <Login/>
